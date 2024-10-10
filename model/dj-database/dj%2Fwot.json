@@ -53,8 +53,15 @@
                         "widget": "container",
                         "children": [
                             {
-                                "display": "value.href ? \n  {'height': 300, 'cardheader': value.name, 'cardcontent': $curl(\"GET\", $replace(value.href, \"{?step}\", \"\"), {}, {})} :\n  \"\"",
-                                "widget": "display"
+                                "if": "value.href",
+                                "title": "${value.name}",
+                                "widget": "card",
+                                "children": [
+                                    {
+                                        "display": "$curl(\"GET\", $replace(value.href, \"{?step}\", \"\"), {}, {})",
+                                        "widget": "display"
+                                    }
+                                ]
                             }
                         ]
                     },
