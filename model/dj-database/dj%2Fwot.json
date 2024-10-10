@@ -53,12 +53,39 @@
                         "widget": "container",
                         "children": [
                             {
-                                "display": "value.href ? \n  {'height': 300, 'cardheader': value.name, 'cardcontent': $curl(\"GET\", $replace(value.href, \"{?step}\", \"\"))} :\n  \"\"",
+                                "display": "value.href ? \n  {'height': 300, 'cardheader': value.name, 'cardcontent': $curl(\"GET\", $replace(value.href, \"{?step}\", \"\"), {}, {})} :\n  \"\"",
                                 "widget": "display"
+                            }
+                        ]
+                    },
+                    {
+                        "foreach": "$traverse('wot', 'thing', value.id, 'dj/wot/action/thing')",
+                        "layout": "horizontal",
+                        "title": "Actions",
+                        "widget": "container",
+                        "children": [
+                            {
+                                "widget": "card",
+                                "children": [
+                                    {
+                                        "print": "(\n  $curl(\"POST\", $replace(value.href, \"{?step}\", \"\"), {}, {});\n  $refresh();\n)",
+                                        "text": "",
+                                        "title": "${value.name}",
+                                        "widget": "button"
+                                    }
+                                ]
                             }
                         ]
                     }
                 ]
+            }
+        },
+        "action": {
+            "properties": {
+                "thing": {
+                    "ref": "dj/wot/thing/id",
+                    "displayWith": "fk"
+                }
             }
         }
     },
