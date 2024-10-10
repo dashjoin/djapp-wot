@@ -38,7 +38,12 @@
                 "children": [
                     {
                         "title": "Thing",
-                        "display": "value.{\n  \"title\": title,\n  \"description\": description\n}",
+                        "display": "value.{\n  \"title\": title,\n  \"description\": description,\n  \"href\": href\n}",
+                        "icons": {
+                            "title": "title",
+                            "description": "description",
+                            "href": "link"
+                        },
                         "widget": "display"
                     },
                     {

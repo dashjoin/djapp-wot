@@ -8,10 +8,18 @@
                 "widget": "markdown"
             },
             {
-                "icon": "thermostat_auto",
-                "href": "/wot/thing",
-                "text": "List of things",
-                "widget": "text"
+                "columns": [
+                    {
+                        "name": "id"
+                    }
+                ],
+                "filter": [
+
+                ],
+                "database": "wot",
+                "table": "thing",
+                "title": "Managed Things",
+                "widget": "analytics"
             }
         ]
     }
