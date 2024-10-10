@@ -1,0 +1,8 @@
+### lastChange
+GET http://plugfest.thingweb.io:8083/counter/properties/lastChange
+
+### get count
+GET http://plugfest.thingweb.io:8083/counter/properties/count
+
+### increment
+POST http://plugfest.thingweb.io:8083/counter/actions/increment
