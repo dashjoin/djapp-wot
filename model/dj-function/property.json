@@ -1,0 +1,32 @@
+{
+    "ID": "property",
+    "djClassName": "com.dashjoin.function.ETL",
+    "expressions": {
+        "foreach": "",
+        "expression": "$call(\"discovery\").(\n  $id := id;\n  $each(properties, function($v, $k) {\n    {\n      \"thing\": $id,\n      \"name\": $k,\n      \"description\": $v.description,\n      \"href\": $v.forms[$.\"htv:methodName\" = \"GET\"][$.\"contentType\" = \"application/json\"].href\n    }\n  })\n)"
+    },
+    "mappings": {
+        "property": {
+            "sourceTable": "table",
+            "extractColumn": null,
+            "extractKey": null,
+            "pk": null,
+            "rowMapping": {
+                "thing": "thing",
+                "name": "name",
+                "description": "description",
+                "href": "href",
+                "id": "$index()"
+            },
+            "rowFilter": null
+        }
+    },
+    "createSchema": true,
+    "ignoreErrors": false,
+    "workerThreads": null,
+    "oldData": "Delete All",
+    "database": "wot",
+    "start": "2024-10-10T07:35:33.488+00:00",
+    "status": "success",
+    "end": "2024-10-10T07:35:33.855+00:00"
+}

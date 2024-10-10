@@ -1,0 +1,62 @@
+{
+    "name": "wot",
+    "djClassName": "org.dashjoin.service.SQLDatabase",
+    "url": "jdbc:postgresql://localhost:5432/postgres",
+    "ID": "dj/wot",
+    "tables": {
+        "property": {
+            "properties": {
+                "thing": {
+                    "ref": "dj/wot/thing/id",
+                    "displayWith": "fk"
+                }
+            },
+            "dj-label": "${name}",
+            "instanceLayout": {
+                "widget": "page",
+                "children": [
+                    {
+                        "title": "Edit Record",
+                        "widget": "edit"
+                    },
+                    {
+                        "title": "Related Records",
+                        "widget": "links"
+                    },
+                    {
+                        "display": "value.href ? \n  $curl(\"GET\", $replace(value.href, \"{?step}\", \"\")) :\n  \"no href\"",
+                        "title": "Property Value",
+                        "widget": "display"
+                    }
+                ]
+            }
+        },
+        "thing": {
+            "dj-label": "${title}",
+            "instanceLayout": {
+                "widget": "page",
+                "children": [
+                    {
+                        "title": "Thing",
+                        "display": "value.{\n  \"title\": title,\n  \"description\": description\n}",
+                        "widget": "display"
+                    },
+                    {
+                        "foreach": "$traverse('wot', 'thing', value.id, 'dj/wot/property/thing')",
+                        "layout": "horizontal",
+                        "title": "Properties",
+                        "widget": "container",
+                        "children": [
+                            {
+                                "display": "value.href ? \n  {'height': 300, 'cardheader': value.name, 'cardcontent': $curl(\"GET\", $replace(value.href, \"{?step}\", \"\"))} :\n  \"\"",
+                                "widget": "display"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    "username": "postgres",
+    "password": "DJ1#\bKQ12Hxw/5HJs6otraQzEXJrRl8eQGvmg"
+}

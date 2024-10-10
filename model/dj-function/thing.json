@@ -1,0 +1,25 @@
+{
+    "djClassName": "com.dashjoin.function.ETL",
+    "ID": "thing",
+    "expressions": {
+        "foreach": "",
+        "expression": "$call(\"discovery\").{\n  \"id\": id,\n  \"description\": description,\n  \"title\": title\n}"
+    },
+    "database": "wot",
+    "oldData": "Delete All",
+    "createSchema": true,
+    "ignoreErrors": false,
+    "mappings": {
+        "thing": {
+            "sourceTable": "table",
+            "extractColumn": null,
+            "extractKey": null,
+            "pk": null,
+            "rowMapping": null,
+            "rowFilter": null
+        }
+    },
+    "start": "2024-10-10T07:35:28.411+00:00",
+    "status": "success",
+    "end": "2024-10-10T07:35:28.748+00:00"
+}
