@@ -74,7 +74,7 @@
                             {
                                 "print": "(\n  $curl(\"POST\", $replace(value.href, \"{?step}\", \"?step=\" & form.step), {}, {});\n  $refresh();\n)",
                                 "text": "${value.name}",
-                                "schemaExpression": "{\n  \"properties\": value.vars\n}",
+                                "schemaExpression": "value.vars ? {\n  \"properties\": value.vars\n} : value.input",
                                 "widget": "button"
                             }
                         ]

@@ -3,7 +3,7 @@
     "djClassName": "com.dashjoin.function.ETL",
     "expressions": {
         "foreach": "",
-        "expression": "$call(\"discovery\").(\n  $id := id;\n  $vars := uriVariables;\n  $each(actions, function($v, $k) {\n    {\n      \"thing\": $id,\n      \"name\": $k,\n      \"description\": $v.description,\n      \"href\": $v.forms[$.\"contentType\" = \"application/json\"].href[$contains($, \"http\")],\n      \"vars\": $vars\n    }\n  })\n)"
+        "expression": "$call(\"discovery\").(\n  $id := id;\n  $vars := uriVariables;\n  $each(actions, function($v, $k) {\n    $v.{\n      \"thing\": $id,\n      \"name\": $k,\n      \"description\": $v.description,\n      \"href\": forms[$.\"contentType\" = \"application/json\"].href[$contains($, \"http\")],\n      \"vars\": $vars ? $vars : uriVariables,\n      \"input\": input,\n      \"output\": output\n    }\n  })\n)"
     },
     "mappings": {
         "action": {
@@ -17,7 +17,9 @@
                 "description": "description",
                 "href": "href",
                 "id": "$index()",
-                "vars": "vars"
+                "vars": "vars",
+                "input": "input",
+                "output": "output"
             },
             "rowFilter": null
         }
