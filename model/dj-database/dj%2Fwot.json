@@ -72,23 +72,10 @@
                         "widget": "container",
                         "children": [
                             {
-                                "widget": "card",
-                                "children": [
-                                    {
-                                        "print": "(\n  $curl(\"POST\", $replace(value.href, \"{?step}\", \"?step=\" & form.step), {}, {});\n  $refresh();\n)",
-                                        "text": "",
-                                        "title": "${value.name}",
-                                        "widget": "button",
-                                        "schema": {
-                                            "type": "object",
-                                            "properties": {
-                                                "step": {
-
-                                                }
-                                            }
-                                        }
-                                    }
-                                ]
+                                "print": "(\n  $curl(\"POST\", $replace(value.href, \"{?step}\", \"?step=\" & form.step), {}, {});\n  $refresh();\n)",
+                                "text": "${value.name}",
+                                "schemaExpression": "{\n  \"properties\": value.vars\n}",
+                                "widget": "button"
                             }
                         ]
                     }
