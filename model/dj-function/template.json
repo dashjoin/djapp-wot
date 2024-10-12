@@ -1,0 +1,5 @@
+{
+    "ID": "template",
+    "djClassName": "org.dashjoin.function.Invoke",
+    "expression": "(\n  $x := $;\n  $k := $keys($x).($ & \"=\" & $lookup($x, $));\n  $j := $join($k, '&');\n  $j ? \"?\" & $j : \"\";\n)"
+}

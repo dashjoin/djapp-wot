@@ -71,7 +71,7 @@
                         "widget": "container",
                         "children": [
                             {
-                                "print": "(\n  $curl(\"POST\", $replace(value.href, \"{?step}\", \"?step=\" & form.step), {}, {});\n  $refresh();\n)",
+                                "print": "(\n  $curl(\"POST\", value.href & $call(\"template\", form), {});\n  $refresh();\n)",
                                 "text": "${value.name}",
                                 "schemaExpression": "value.vars ? {\n  \"properties\": value.vars\n} : value.input",
                                 "widget": "button"
