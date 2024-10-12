@@ -57,7 +57,7 @@
                                 "widget": "card",
                                 "children": [
                                     {
-                                        "display": "$curl(\"GET\", $replace(value.href, \"{?step}\", \"\"), {}, {})",
+                                        "display": "$curl(\"GET\", value.href)",
                                         "widget": "display"
                                     }
                                 ]
