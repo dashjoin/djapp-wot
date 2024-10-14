@@ -23,6 +23,12 @@
                 "table": "thing",
                 "title": "Managed Things",
                 "widget": "analytics"
+            },
+            {
+                "icon": "mic_noise_cancel_high",
+                "text": "Voice Command",
+                "href": "/page/AI",
+                "widget": "text"
             }
         ]
     }
