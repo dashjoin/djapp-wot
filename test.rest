@@ -6,3 +6,6 @@ GET http://plugfest.thingweb.io:8083/counter/properties/count
 
 ### increment
 POST http://plugfest.thingweb.io:8083/counter/actions/increment
+
+### makedrink
+POST http://plugfest.thingweb.io:8083/smart-coffee-machine/actions/makeDrink
