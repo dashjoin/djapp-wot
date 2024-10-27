@@ -52,11 +52,13 @@ Taking natual language commands a step further, WoT manager makes use of modern 
 This figure describes the WoT manager architecture. We see the following components:
 
 * The core application is built using the Dashjoin Low Code platform (https://github.com/dashjoin/platform). The main motivation for this approach is the ability to quickly customize the generic management features with more specialized domain specific features. The platform consists of a horizonally scalable set of application servers and a shared configuration database that holds the application itself. Technically, this is a clone of the WoT Manager GIT repository (https://github.com/dashjoin/djapp-wot).
-* OpenID capable IDM: 
-* RBAC enabled database to store and query TDs 
-* Credential manager to store thing secrets 
-* JSON stack to process OpenAPI, JSON Schema 
-* API gateway to support non web protocols 
+* OpenID capable IDM: The IDM is used to authenticate users accessing the WoT Manager. Any OpenID capable IDM can be used. The platform maps claims associated to the user in the IDM to platform roles, which in turn grant the user access to devices and device actions.
+* On top of the platform are the user interface as well as a REST API allowing 3rd party integrations.
+* The TDs are stored in a PostgrSQL database. Note that the platform also supports RDF stores that would enable SPARQL queries over the device descriptions.
+* The platform uses an LLM for the natural language and planning use cases. The LLM tool integration is done using the Python SDK avaiable in Dashjoin Studio.
+* The device connectivity uses RESTful APIs. We leverage APIs bridges to make other protocols like MQTT or COAP available via HTTP.
+* The RBAC (https://dashjoin.github.io/platform/latest/security/#access-control) and credential manager (https://dashjoin.github.io/platform/latest/developer-reference/#credentials) are part of the platform.
+* The mapping component sits between the platform and the device APIs
 
 ### Implementation 
 
