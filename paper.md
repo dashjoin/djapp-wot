@@ -39,15 +39,11 @@ Besides visualization, a second benefit of a common information model is the abi
 
 #### Natural Language Commands
 
+WoT Manager offers traditional forms for triggering device actions. To make things more usable, for instance in a smart home setting, WoT manager also provides natural language commands.
+
 #### AI Planning
 
-* Discovery: connect to one or more WoT registries 
-* Security and authorization: Wot Manager allows providing credentials for the devices and leverages OpenID and RBAC to empower users 
-* Semantic data harmonization: TODO 
-* Dashboarding on the harmonized data 
-* Trigger device actions via generic JSON Schema forms 
-* Trigger actions via natural language using LLM text to JSON features 
-* Solve complex goals using LLM tools 
+Taking natual language commands a step further, WoT manager makes use of modern LLM's planning capabilities. A user can specify a goal in natural language. In turn, the system will figure out a way to accomplish this goal by invoking device actions.
 
 ### Architecture 
 
