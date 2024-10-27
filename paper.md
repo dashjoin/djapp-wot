@@ -2,6 +2,11 @@
 
 ## Introduction 
 
+Internet of Things (IoT) describes applying internet technology to devices in homes, factories, or smart cities. Obviously this space offers tremendous potential for applications like energy management, predictive maintenance, and many more. With IoT being such a wide field, many different vendors are active in it. The W3C Web of Things (WoT) standard aims at overcoming the resulting interoperability challenge.
+
+Several WoT SDKs and tools are already available (https://www.w3.org/WoT/developers/). We are specifically interested in applications that make use of WoT’s generic nature. This means that rather than building a solution for one application area, we want the solution to be able to provide value on top of any WoT device. This concept was introduced by Sciullo et al (https://arxiv.org/pdf/1910.04617). We build on their ideas and extend them, specifically by introducing security, semantic mappings, and the ability to leverage artificial intelligence to interact with arbitrary devices more easily.
+
+
 * W3C Web of Things (WoT) aims at countering the fragmentation in the IoT space by using and extending existing, standardized Web technologies 
 * Several tools and SDKs are available (https://www.w3.org/WoT/developers/) 
 * Related work: https://arxiv.org/pdf/1910.04617 
