@@ -47,7 +47,12 @@ Taking natual language commands a step further, WoT manager makes use of modern 
 
 ### Architecture 
 
-* OpenID connector to IDM 
+<img width="1449" alt="image" src="https://github.com/user-attachments/assets/88d14ca8-5557-4859-89ee-8617cdbc010b">
+
+This figure describes the WoT manager architecture. We see the following components:
+
+* The core application is built using the Dashjoin Low Code platform (https://github.com/dashjoin/platform). The main motivation for this approach is the ability to quickly customize the generic management features with more specialized domain specific features. The platform consists of a horizonally scalable set of application servers and a shared configuration database that holds the application itself. Technically, this is a clone of the WoT Manager GIT repository (https://github.com/dashjoin/djapp-wot).
+* OpenID capable IDM: 
 * RBAC enabled database to store and query TDs 
 * Credential manager to store thing secrets 
 * JSON stack to process OpenAPI, JSON Schema 
