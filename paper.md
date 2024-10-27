@@ -16,6 +16,15 @@ WoT Manager offers the following features:
 
 An important part of the WoT stack is the ability to discover devices in a registry (https://www.w3.org/TR/wot-discovery/). Given credentials and addresses, WoT Manager is able to connect to several registries. Technically, these provide a list of thing descriptions (TDs). Note that some things also publish their own TD. We treat these devices as device plus mini-registry.
 
+#### Security
+
+Security is a cruicial aspect of IoT applications, specifically when actions such as opening doors or machine valves are concerned. The WoT architecture document (https://www.w3.org/TR/wot-architecture10/#security) references well-known web security protocols. When managing multiple devices, there are two principle approaches:
+
+* Impersonation: WoT manager leverages an identity management system (IDM) in conjunction with role based access control (RBAC) to authenticate and authorize a user on a device. The actual call is being made using the device credentials. These are stored in the WoT manager and are not known to the users
+* Direct use: User knows secrets to access a device. WoT manager does not manage any secrets and only passes calls along
+
+We choose the impersonation approach. An administrator setting up the system will discover and configure the devices. In practise, this could be a shop floor manager in a factory or an electrician configuring a smart home. End users simply authenticate via OpenID and have immediate access to all devices assigned to them by the configured RBAC.  
+
 
 * Discovery: connect to one or more WoT registries 
 * Security and authorization: Wot Manager allows providing credentials for the devices and leverages OpenID and RBAC to empower users 
