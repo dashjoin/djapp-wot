@@ -62,6 +62,38 @@ This figure describes the WoT manager architecture. We see the following compone
 
 ### Implementation 
 
+The first step is represent the TDs in the PostgreSQL database. We are using the following schema for that:
+
+<img width="860" alt="image" src="https://github.com/user-attachments/assets/32d2a478-e249-467e-ac27-2adc6773d008">
+
+The TDs are stored in the table "thing" along with the child tables "property" and "action". The table registry is used to store the addresses of the registries. The next step is to load the data. The platform allows to express this extract-load-transform process using JSONata (https://jsonata.org/) with some extensions for accessing REST services and databases (https://dashjoin.github.io/platform/latest/developer-reference/#dashjoin-expression-reference).
+
+Loading all TDs from the registry can be done using the following code:
+
+```
+$all("wot", "registry").href.
+  $curl("GET", $, {}, {})
+```
+
+The resulting list of TDs can then be mapped into the DB schema using mapping expression like the following one:
+
+```
+{
+    {
+      "thing": $id,
+      "name": $k,
+      "description": $v.description,
+      "href": $replace(forms[$."contentType" = "application/json"].href[$contains($, "http")], /\{.*\}/, ""),
+      "vars": $vars ? $vars : uriVariables,
+      "input": input,
+      "output": output
+    }
+  }
+```
+
+This expression collects the action's JSON Schema from either the uriVariables or the "input" fields. Note that the platform offers a streaming mode to support importing large sets of TDs (https://dashjoin.github.io/platform/latest/developer-reference/#etl).
+
+
 * Leverage Low Code platform 
 * Can be extended easily 
 * Install custom add-ons via apps 
