@@ -62,6 +62,8 @@ This figure describes the WoT manager architecture. We see the following compone
 
 ### Implementation 
 
+#### Data Model
+
 The first step is represent the TDs in the PostgreSQL database. We are using the following schema for that:
 
 <img width="860" alt="image" src="https://github.com/user-attachments/assets/32d2a478-e249-467e-ac27-2adc6773d008">
@@ -92,6 +94,13 @@ The resulting list of TDs can then be mapped into the DB schema using mapping ex
 ```
 
 This expression collects the action's JSON Schema from either the uriVariables or the "input" fields. Note that the platform offers a streaming mode to support importing large sets of TDs (https://dashjoin.github.io/platform/latest/developer-reference/#etl).
+
+#### Generic Properties and Actions
+
+
+
+<img width="809" alt="image" src="https://github.com/user-attachments/assets/a2471909-b1b0-4f09-be0e-a1a07f777968">
+
 
 
 * Leverage Low Code platform 
