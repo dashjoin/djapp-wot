@@ -14,7 +14,8 @@ WoT Manager offers the following features:
 
 #### Discovery
 
-An important part of the WoT stack is the ability to discover devices in a registry. 
+An important part of the WoT stack is the ability to discover devices in a registry (https://www.w3.org/TR/wot-discovery/). Given credentials and addresses, WoT Manager is able to connect to several registries. Technically, these provide a list of thing descriptions (TDs). Note that some things also publish their own TD. We treat these devices as device plus mini-registry.
+
 
 * Discovery: connect to one or more WoT registries 
 * Security and authorization: Wot Manager allows providing credentials for the devices and leverages OpenID and RBAC to empower users 
