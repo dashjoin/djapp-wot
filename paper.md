@@ -25,6 +25,21 @@ Security is a cruicial aspect of IoT applications, specifically when actions suc
 
 We choose the impersonation approach. An administrator setting up the system will discover and configure the devices. In practise, this could be a shop floor manager in a factory or an electrician configuring a smart home. End users simply authenticate via OpenID and have immediate access to all devices assigned to them by the configured RBAC.  
 
+#### Semantic Data Harmonization
+
+WoT makes heavy use of semantically annotated JSON-LD. An implicit benefit of this technology is the ability to "understand" data. This allows WoT manager to map syntactically different but semantically similar data from devices onto a common information model.
+
+#### Visualization
+
+Once device data is aligned to a common model, it can be visualized accordingly. WoT Manager offers comprehensive charts fed from data received from heterogeneous devices.
+
+#### Automation
+
+Besides visualization, a second benefit of a common information model is the ability to perform actions on different devices. Let's assume we would like to dim all lights to 50%, but the lights require this action to be triggered in a slightly different way. This can be achieved by mapping the semantic intention to the concrete call syntax, just like we do for incoming property data.
+
+#### Natural Language Commands
+
+#### AI Planning
 
 * Discovery: connect to one or more WoT registries 
 * Security and authorization: Wot Manager allows providing credentials for the devices and leverages OpenID and RBAC to empower users 
