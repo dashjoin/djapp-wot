@@ -103,7 +103,7 @@ This expression collects the action's JSON Schema from either the uriVariables o
 
 The platform has the ability to securely store credentials (https://dashjoin.github.io/platform/latest/developer-reference/#credentials). The WoT specification allows defining security descriptors to the device or individual actions, properties, and events. The system currently supports security only on a thing level. This is achieved by defining credential sets and referencing them by name from the thing table. Any call performed from WoT Manager can be authenticated by reading the credential name and attaching this name to the curl HTTP header (the platform in turn looks up the secret from the credential store):
 
-````
+```
 $credential = $read("wot", "thing", id).credential;
 $curl(..., $credential ? {"Authorization": $credential} : {});
 ```
