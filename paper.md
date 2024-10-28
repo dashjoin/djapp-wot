@@ -145,6 +145,8 @@ The field schemaExpression specifies a JSONata expression to compute the JSON Sc
 
 #### Natural Language Commands
 
+![image](https://github.com/user-attachments/assets/371fa9d1-1b07-4652-8e3e-236eff1cb050)
+
 We're taking the form-based invokation a step further by introducing natural language commands. This feature takes advantage of the structured output mode of modern large language models. The following listing shows the configuration of the button widget. Rather than displaying a JSON Schema form corresponding to the action inputs, the widget shows a single text input that also allows voice inputs.
 
 ```
