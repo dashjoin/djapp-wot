@@ -72,6 +72,8 @@ The TDs are stored in the table "thing" along with the child tables "property" a
 
 Loading all TDs from the registry can be done using the following code:
 
+TODO: registry security
+
 ```
 $all("wot", "registry").href.
   $curl("GET", $, {}, {})
@@ -99,7 +101,14 @@ This expression collects the action's JSON Schema from either the uriVariables o
 
 #### Security
 
-TODO
+The platform has the ability to securely store credentials (https://dashjoin.github.io/platform/latest/developer-reference/#credentials). The WoT specification allows defining security descriptors to the device or individual actions, properties, and events. The system currently supports security only on a thing level. This is achieved by defining credential sets and referencing them by name from the thing table. Any call performed from WoT Manager can be authenticated by reading the credential name and attaching this name to the curl HTTP header (the platform in turn looks up the secret from the credential store):
+
+````
+$credential = $read("wot", "thing", id).credential;
+$curl(..., $credential ? {"Authorization": $credential} : {});
+```
+
+
 
 #### Semantic Data Harmonization
 
@@ -110,13 +119,13 @@ TODO
 TODO: mapping
 TODO: security
 
-The user interface for displaying device properties makes use of the platform's display widget. It is placed in a container that shows a widget for every device property. The widget simply displays the result of the HTTP request to the device WoT API. The device href is obtained from the foreach loop variable "value" which in turn is read from the database by looking up all properties of the current thing:
+The user interface for displaying device properties makes use of the platform's display widget. It is placed in a container that shows a widget for every device property. The widget simply displays the result of the HTTP request to the device WoT API. The device href is obtained from the foreach loop variable "value" which in turn is read from the database by looking up all properties of the current thing. Finally, the authorization header is obtained via the mechanism described in the security section:
 
 ```
-{
-  "display": "$curl('GET', value.href)",
-  "widget": "display"
-}
+(
+  $c := $read("wot", "thing", value.thing).credentials;
+  $curl("GET", value.href, {}, $c ? {"Authorization": $c} : {})
+)
 ```
 
 <img width="809" alt="image" src="https://github.com/user-attachments/assets/a2471909-b1b0-4f09-be0e-a1a07f777968">
@@ -146,27 +155,4 @@ The field schemaExpression specifies a JSONata expression to compute the JSON Sc
 TODO
 
 
-# Generic Management of Web of Things based on JSON Schema
-
-## Introduction 
-
-The goal of the project is to showcase the benefits of an WoT enabled world: 
-
-* The use of declarative specifications and reusable vocabularies enables any device to the managed seamlessly 
-* Higher level tasks such as energy management or physical building security can be realized by combining generic capability specifications with AI 
-
-## Team 
-
-* Ege Korkan, Siemens 
-* Andreas Eberhart, Dashjoin 
-
-## Project Scope 
-
-We will develop a WoT management system with the following features: 
-
-* Connect to a WoT registry 
-* Ability to browse / search all WoT devices 
-* Ability to display all device data and call device APIs from user forms (dynamically rendered using JSON Schema) 
-* Generic dashboards showing charts for common device status 
-* OpenAI tool to allow users to interact with WoT devices using natural language (https://platform.openai.com/docs/assistants/tools/function-calling) 
-
+TODO: WoT events
