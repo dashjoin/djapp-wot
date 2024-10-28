@@ -1,0 +1,4 @@
+(
+$c := $read("wot", "thing", value.thing).credentials;
+$curl("GET", value.href, {}, $c ? {"Authorization": $c} : {})
+)

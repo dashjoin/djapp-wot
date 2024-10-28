@@ -1,0 +1,4 @@
+(
+  $curl("POST", value.href & $call("template", form), form);
+  $refresh();
+)

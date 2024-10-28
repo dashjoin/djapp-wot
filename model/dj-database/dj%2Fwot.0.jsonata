@@ -1,0 +1,3 @@
+value.href ? 
+  $curl("GET", $replace(value.href, "{?step}", "")) :
+  "no href"
