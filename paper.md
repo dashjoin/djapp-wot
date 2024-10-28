@@ -2,7 +2,7 @@
 
 ## Introduction 
 
-Internet of Things (IoT) describes applying internet technology to devices in homes, factories, or smart cities. Obviously this space offers tremendous potential for applications like energy management, predictive maintenance, and many more. With IoT being such a wide field, many different vendors are active in it. The W3C Web of Things (WoT) standard aims at overcoming the resulting interoperability challenge.
+Internet of Things (IoT) describes applying internet technology to devices in homes, factories, or smart cities. Obviously, this space offers tremendous potential for applications like energy management, predictive maintenance, and many more. With IoT being such a wide field, many different vendors are active in it. The W3C Web of Things (WoT) standard aims at overcoming the resulting interoperability challenge.
 
 Several WoT SDKs and tools are already available (https://www.w3.org/WoT/developers/). We are specifically interested in applications that make use of WoT’s generic nature. This means that rather than building a solution for one application area, we want the solution to be able to provide value on top of any WoT device. This concept was introduced by Sciullo et al (https://arxiv.org/pdf/1910.04617). It allows for any WoT device to be connected. The system displays the device properties and displays generic forms for conveniently invoking device actions. We build on their ideas and extend them, specifically by introducing security, semantic mappings, and the ability to leverage artificial intelligence to interact with arbitrary devices more easily.
 
@@ -14,16 +14,16 @@ WoT Manager offers the following features:
 
 #### Discovery
 
-An important part of the WoT stack is the ability to discover devices in a registry (https://www.w3.org/TR/wot-discovery/). Given credentials and addresses, WoT Manager is able to connect to several registries. Technically, these provide a list of thing descriptions (TDs). Note that some things also publish their own TD. We treat these devices as device plus mini-registry.
+An important part of the WoT stack is the ability to discover devices in a registry (https://www.w3.org/TR/wot-discovery/). Given credentials and addresses, WoT Manager can connect to several registries. Technically, these provide a list of thing descriptions (TDs). Note that some things also publish their own TD. We treat these devices as device plus mini registry.
 
 #### Security
 
-Security is a cruicial aspect of IoT applications, specifically when actions such as opening doors or machine valves are concerned. The WoT architecture document (https://www.w3.org/TR/wot-architecture10/#security) references well-known web security protocols. When managing multiple devices, there are two principle approaches:
+Security is a cruicial aspect of IoT applications, specifically when actions such as opening doors or machine valves are concerned. The WoT architecture document (https://www.w3.org/TR/wot-architecture10/#security) references well-known web security protocols. When managing multiple devices, there are two principal approaches:
 
-* Impersonation: WoT manager leverages an identity management system (IDM) in conjunction with role based access control (RBAC) to authenticate and authorize a user on a device. The actual call is being made using the device credentials. These are stored in the WoT manager and are not known to the users
+* Impersonation: WoT manager leverages an identity management system (IDM) in conjunction with role-based access control (RBAC) to authenticate and authorize a user on a device. The actual call is being made using the device credentials. These are stored in the WoT manager and are not known to the users
 * Direct use: User knows secrets to access a device. WoT manager does not manage any secrets and only passes calls along
 
-We choose the impersonation approach. An administrator setting up the system will discover and configure the devices. In practise, this could be a shop floor manager in a factory or an electrician configuring a smart home. End users simply authenticate via OpenID and have immediate access to all devices assigned to them by the configured RBAC.  
+We choose the impersonation approach. An administrator setting up the system will discover and configure the devices. In practice, this could be a shop floor manager in a factory or an electrician configuring a smart home. End users simply authenticate via OpenID and have immediate access to all devices assigned to them by the configured RBAC.  
 
 #### Semantic Data Harmonization
 
@@ -43,7 +43,7 @@ WoT Manager offers traditional forms for triggering device actions. To make thin
 
 #### AI Planning
 
-Taking natual language commands a step further, WoT manager makes use of modern LLM's planning capabilities. A user can specify a goal in natural language. In turn, the system will figure out a way to accomplish this goal by invoking device actions.
+Taking natural language commands a step further, WoT manager makes use of modern LLM's planning capabilities. A user can specify a goal in natural language. In turn, the system will figure out a way to accomplish this goal by invoking device actions.
 
 ### Architecture 
 
@@ -51,11 +51,11 @@ Taking natual language commands a step further, WoT manager makes use of modern 
 
 This figure describes the WoT manager architecture. We see the following components:
 
-* The core application is built using the Dashjoin Low Code platform (https://github.com/dashjoin/platform). The main motivation for this approach is the ability to quickly customize the generic management features with more specialized domain specific features. The platform consists of a horizonally scalable set of application servers and a shared configuration database that holds the application itself. Technically, this is a clone of the WoT Manager GIT repository (https://github.com/dashjoin/djapp-wot).
+* The core application is built using the Dashjoin Low Code platform (https://github.com/dashjoin/platform). The main motivation for this approach is the ability to quickly customize the generic management features with more specialized domain specific features. The platform consists of a horizontally scalable set of application servers and a shared configuration database that holds the application itself. Technically, this is a clone of the WoT Manager GIT repository (https://github.com/dashjoin/djapp-wot).
 * OpenID capable IDM: The IDM is used to authenticate users accessing the WoT Manager. Any OpenID capable IDM can be used. The platform maps claims associated to the user in the IDM to platform roles, which in turn grant the user access to devices and device actions.
 * On top of the platform are the user interface as well as a REST API allowing 3rd party integrations.
 * The TDs are stored in a PostgrSQL database. Note that the platform also supports RDF stores that would enable SPARQL queries over the device descriptions.
-* The platform uses an LLM for the natural language and planning use cases. The LLM tool integration is done using the Python SDK avaiable in Dashjoin Studio.
+* The platform uses an LLM for the natural language and planning use cases. The LLM tool integration is done using the Python SDK available in Dashjoin Studio.
 * The device connectivity uses RESTful APIs. We leverage APIs bridges to make other protocols like MQTT or COAP available via HTTP.
 * The RBAC (https://dashjoin.github.io/platform/latest/security/#access-control) and credential manager (https://dashjoin.github.io/platform/latest/developer-reference/#credentials) are part of the platform.
 * The mapping component sits between the platform and the device APIs
@@ -64,7 +64,7 @@ This figure describes the WoT manager architecture. We see the following compone
 
 #### Data Model
 
-The first step is represent the TDs in the PostgreSQL database. We are using the following schema for that:
+The first step is to represent the TDs in the PostgreSQL database. We are using the following schema for that:
 
 <img width="860" alt="image" src="https://github.com/user-attachments/assets/32d2a478-e249-467e-ac27-2adc6773d008">
 
@@ -101,7 +101,7 @@ This expression collects the action's JSON Schema from either the uriVariables o
 
 #### Security and Access Control
 
-The platform has the ability to securely store credentials (https://dashjoin.github.io/platform/latest/developer-reference/#credentials). The WoT specification allows defining security descriptors to the device or individual actions, properties, and events. The system currently supports security only on a thing level. This is achieved by defining credential sets and referencing them by name from the thing table. Any call performed from WoT Manager can be authenticated by reading the credential name and attaching this name to the curl HTTP header (the platform in turn looks up the secret from the credential store):
+The platform can securely store credentials (https://dashjoin.github.io/platform/latest/developer-reference/#credentials). The WoT specification allows defining security descriptors to the device or individual actions, properties, and events. The system currently supports security only on a thing level. This is achieved by defining credential sets and referencing them by name from the thing table. Any call performed from WoT Manager can be authenticated by reading the credential name and attaching this name to the curl HTTP header (the platform in turn looks up the secret from the credential store):
 
 ```
 $credential = $read("wot", "thing", id).credential;
@@ -141,13 +141,13 @@ The screenshot above shows a form that gathers data for performing an action. Wo
 }
 ```
 
-The field schemaExpression specifies a JSONata expression to compute the JSON Schema for the form. The field "print" specifies the action to perform when the button is pressed. We perform two command. First, the action is performed. The call to the template subrouting helps to handle cases where the inputs are provided as URI variables. The call to refresh triggers the UI to redraw itself, getting potentially updated device values in the process, e.g. the water level being lower after a becerage was brewed.
+The field schemaExpression specifies a JSONata expression to compute the JSON Schema for the form. The field "print" specifies the action to perform when the button is pressed. We perform two commands. First, the action is performed. The call to the template subroutine helps to handle cases where the inputs are provided as URI variables. The call to refresh triggers the UI to redraw itself, getting potentially updated device values in the process, e.g. the water level being lower after a beverage was brewed.
 
 #### Natural Language Commands
 
 ![image](https://github.com/user-attachments/assets/371fa9d1-1b07-4652-8e3e-236eff1cb050)
 
-We're taking the form-based invokation a step further by introducing natural language commands. This feature takes advantage of the structured output mode of modern large language models. The following listing shows the configuration of the button widget. Rather than displaying a JSON Schema form corresponding to the action inputs, the widget shows a single text input that also allows voice inputs.
+We're taking the form-based invocation a step further by introducing natural language commands. This feature takes advantage of the structured output mode of modern large language models. The following listing shows the configuration of the button widget. Rather than displaying a JSON Schema form corresponding to the action inputs, the widget shows a single text input that also allows voice inputs.
 
 ```
 {
