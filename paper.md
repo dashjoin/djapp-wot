@@ -85,6 +85,8 @@ The resulting list of TDs can then be mapped into the DB schema using mapping ex
       "thing": $id,
       "name": $k,
       "description": $v.description,
+      // TODO: currently limited to HTTP
+      // if only other protocols are offered, we should replace the href with that of the API gateway
       "href": $replace(forms[$."contentType" = "application/json"].href[$contains($, "http")], /\{.*\}/, ""),
       "vars": $vars ? $vars : uriVariables,
       "input": input,
@@ -95,17 +97,43 @@ The resulting list of TDs can then be mapped into the DB schema using mapping ex
 
 This expression collects the action's JSON Schema from either the uriVariables or the "input" fields. Note that the platform offers a streaming mode to support importing large sets of TDs (https://dashjoin.github.io/platform/latest/developer-reference/#etl).
 
+#### Security
+
+TODO
+
+#### Semantic Data Harmonization
+
+TODO
+
 #### Generic Properties and Actions
 
+TODO: mapping
+TODO: security
 
+The user interface for displaying device properties makes use of the platform's display widget. It is placed in a container that shows a widget for every device property. The widget simply displays the result of the HTTP request to the device WoT API. The device href is obtained from the foreach loop variable "value" which in turn is read from the database by looking up all properties of the current thing:
+
+```
+{
+  "display": "$curl('GET', value.href)",
+  "widget": "display"
+}
+```
 
 <img width="809" alt="image" src="https://github.com/user-attachments/assets/a2471909-b1b0-4f09-be0e-a1a07f777968">
 
+The screenshot above shows a form that gathers data for performing an action. Wot Manager makes use of the JSON Schema descriptions found in the TDs. These can be fed directly into the platform's button widget, describing the form to display to the user. Note that the form tooltips and select values are taken directly from the JSON Schema property descriptions and type enums respectively. The form also automatically performs any input validation defined in the schema. In this example, some inputs are required to be present. The definition of the button widget is as follows:
 
+````
+// TODO: POST ist hard coded
+{
+  "print": "($curl('POST', value.href & $call('template', form), form); $refresh();)",
+  "schemaExpression": "value.vars ? {'properties': value.vars} : value.input",
+  "title": "${value.name}",
+  "widget": "button"
+}
+```
 
-* Leverage Low Code platform 
-* Can be extended easily 
-* Install custom add-ons via apps 
+The field schemaExpression specifies a JSONata expression to compute the JSON Schema for the form. The field "print" specifies the action to perform when the button is pressed. We perform two command. First, the action is performed. The call to the template subrouting helps to handle cases where the inputs are provided as URI variables. The call to refresh triggers the UI to redraw itself, getting potentially updated device values in the process, e.g. the water level being lower after a becerage was brewed.
 
 ## Use Cases 
 
