@@ -79,6 +79,10 @@
                         ]
                     }
                 ]
+            },
+            "tenantColumn": "role",
+            "roleMappings": {
+                "authenticated": "authenticated"
             }
         },
         "action": {
@@ -91,5 +95,8 @@
         }
     },
     "username": "postgres",
-    "password": "DJ1#\bXVYYcfpR2DwXP9huh68CDkl1jpVfSTHN"
+    "password": "DJ1#\bXVYYcfpR2DwXP9huh68CDkl1jpVfSTHN",
+    "readRoles": [
+        "authenticated"
+    ]
 }

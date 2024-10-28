@@ -21,5 +21,6 @@
             ]
         }
     },
-    "credentials": "wot-cred"
+    "credentials": "wot-cred",
+    "role": "authenticated"
 }

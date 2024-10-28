@@ -3,5 +3,8 @@
     "djClassName": "org.dashjoin.function.Credentials",
     "username": "admin",
     "password": "DJ1#...",
-    "apiKey": false
+    "apiKey": false,
+    "roles": [
+        "authenticated"
+    ]
 }
