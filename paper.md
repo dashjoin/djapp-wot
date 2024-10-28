@@ -131,7 +131,7 @@ The user interface for displaying device properties makes use of the platform's 
 
 The screenshot above shows a form that gathers data for performing an action. Wot Manager makes use of the JSON Schema descriptions found in the TDs. These can be fed directly into the platform's button widget, describing the form to display to the user. Note that the form tooltips and select values are taken directly from the JSON Schema property descriptions and type enums respectively. The form also automatically performs any input validation defined in the schema. In this example, some inputs are required to be present. The definition of the button widget is as follows:
 
-````
+```
 // TODO: POST ist hard coded
 {
   "print": "($curl('POST', value.href & $call('template', form), form); $refresh();)",
