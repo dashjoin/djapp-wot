@@ -117,7 +117,6 @@ TODO
 #### Generic Properties and Actions
 
 TODO: mapping
-TODO: security
 
 The user interface for displaying device properties makes use of the platform's display widget. It is placed in a container that shows a widget for every device property. The widget simply displays the result of the HTTP request to the device WoT API. The device href is obtained from the foreach loop variable "value" which in turn is read from the database by looking up all properties of the current thing. Finally, the authorization header is obtained via the mechanism described in the security section:
 
@@ -143,6 +142,65 @@ The screenshot above shows a form that gathers data for performing an action. Wo
 ```
 
 The field schemaExpression specifies a JSONata expression to compute the JSON Schema for the form. The field "print" specifies the action to perform when the button is pressed. We perform two command. First, the action is performed. The call to the template subrouting helps to handle cases where the inputs are provided as URI variables. The call to refresh triggers the UI to redraw itself, getting potentially updated device values in the process, e.g. the water level being lower after a becerage was brewed.
+
+#### Natural Language Commands
+
+We're taking the form-based invokation a step further by introducing natural language commands. This feature takes advantage of the structured output mode of modern large language models. The following listing shows the configuration of the button widget. Rather than displaying a JSON Schema form corresponding to the action inputs, the widget shows a single text input that also allows voice inputs.
+
+```
+{
+    "widget": "button",
+    "schema": {
+        "type": "object",
+        "properties": {
+            "Command": {
+                "widget": "voice"
+            }
+        }
+    },
+    "print": see listing below,
+    "text": "Brew"
+}
+```
+
+The following code shows the call to the large language model (LLM). The JSON mode is activated by using the "response_format" of type "json_schema" (https://platform.openai.com/docs/guides/structured-outputs). This mode also allows specifying a target schema that should be populated by the LLM. We query this schema from the WoT database using the expression $all("wot", "action")[name="makeDrink"].vars. The LLM output is def into the parseJson function and stored in the variable x. After the LLM completes, we call the device action and pass the parsed JSON payload into the call.
+
+```
+(
+$x := $curl("POST", "https://api.openai.com/v1/chat/completions", {
+    "model": "gpt-4o-2024-08-06",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You extract a coffee order into JSON data."
+      },
+      {
+        "role": "user",
+        "content": form.Command
+      }
+    ],
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "coffe_request_schema",
+        "schema": {
+            "type": "object",
+            "properties": $all("wot", "action")[name="makeDrink"].vars,
+            "additionalProperties": false
+        }
+      }
+    }
+  }, {"Authorization": "openai"}).choices.message[0].content ~> $parseJson($);
+
+$setVariable("request", $x);
+$curl("POST", "http://plugfest.thingweb.io:8083/smart-coffee-machine/actions/makeDrink", $x);
+$refresh();
+)
+```
+
+#### Planning
+
+TODO
 
 ## Use Cases 
 
