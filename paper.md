@@ -99,7 +99,7 @@ The resulting list of TDs can then be mapped into the DB schema using mapping ex
 
 This expression collects the action's JSON Schema from either the uriVariables or the "input" fields. Note that the platform offers a streaming mode to support importing large sets of TDs (https://dashjoin.github.io/platform/latest/developer-reference/#etl).
 
-#### Security
+#### Security and Access Control
 
 The platform has the ability to securely store credentials (https://dashjoin.github.io/platform/latest/developer-reference/#credentials). The WoT specification allows defining security descriptors to the device or individual actions, properties, and events. The system currently supports security only on a thing level. This is achieved by defining credential sets and referencing them by name from the thing table. Any call performed from WoT Manager can be authenticated by reading the credential name and attaching this name to the curl HTTP header (the platform in turn looks up the secret from the credential store):
 
@@ -108,7 +108,7 @@ $credential = $read("wot", "thing", id).credential;
 $curl(..., $credential ? {"Authorization": $credential} : {});
 ```
 
-
+Since WoT Manager impersonates the users when communicating with the devices, we need to make sure that access control is enforced in the system. This is realized by associating device credentials with a system role. This means that only users in that role are allowed to use the credentials. The system also restricts user access to things they are not allowed to access by introducing a role column on the things table. When querying the things table, the system only returns those rows where the role column has a role the current user is in.
 
 #### Semantic Data Harmonization
 
