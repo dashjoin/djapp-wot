@@ -1,5 +1,5 @@
 {
     "djClassName": "org.dashjoin.function.Invoke",
     "ID": "discovery",
-    "expression": "[\n$curl(\"GET\", 'http://plugfest.thingweb.io:8083/counter', {}, {}) ~> | $ | {\"href\": \"http://plugfest.thingweb.io:8083/counter\"} |,\n$curl(\"GET\", 'http://plugfest.thingweb.io:8083/smart-coffee-machine', {}, {}) ~> | $ | {\"href\": \"http://plugfest.thingweb.io:8083/smart-coffee-machine\"} |\n]"
+    "expression": "$all(\"wot\", \"registry\").ID.\n(\n  $href := $;\n  $curl(\"GET\", $) ~> | $ | {\"href\": $href} |\n)"
 }
