@@ -3,7 +3,7 @@
     "djClassName": "com.dashjoin.function.ETL",
     "expressions": {
         "foreach": "",
-        "expression": "$call(\"discovery\").(\n  $id := id;\n  $each(properties, function($v, $k) {\n    {\n      \"thing\": $id,\n      \"name\": $k,\n      \"description\": $v.description,\n      \"href\": $replace($v.forms[$.\"htv:methodName\" = \"GET\"][$.\"contentType\" = \"application/json\"].href, /\\{.*\\}/, \"\")\n    }\n  })\n)[href]"
+        "expression": "$call(\"discovery\").(\n  $id := id;\n  $each(properties, function($v, $k) {\n    {\n      \"thing\": $id,\n      \"name\": $k,\n      \"description\": $v.description,\n      \"href\": $replace($v.forms[$.\"htv:methodName\" = \"GET\"][$.\"contentType\" = \"application/json\"][0].href, /\\{.*\\}/, \"\")\n    }\n  })\n)[href]"
     },
     "mappings": {
         "property": {
