@@ -3,7 +3,7 @@
     "ID": "thing",
     "expressions": {
         "foreach": "",
-        "expression": "$call(\"discovery\").{\n  \"id\": id,\n  \"description\": description,\n  \"title\": title,\n  \"href\": href,\n  \"credentials\": credentials,\n  \"role\": role\n}"
+        "expression": "$call(\"discovery\").{\n  \"id\": id,\n  \"description\": description,\n  \"title\": title,\n  \"type\": $.\"@type\",\n  \"href\": href,\n  \"credentials\": credentials,\n  \"role\": role\n}"
     },
     "database": "wot",
     "oldData": "Delete All",
