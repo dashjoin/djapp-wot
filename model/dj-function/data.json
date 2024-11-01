@@ -1,0 +1,15 @@
+{
+    "ID": "data",
+    "djClassName": "com.dashjoin.function.ETL",
+    "expressions": {
+        "foreach": "",
+        "expression": "$call(\"getdata\")"
+    },
+    "createSchema": true,
+    "ignoreErrors": false,
+    "oldData": "Delete All",
+    "database": "wot",
+    "start": "2024-11-01T16:59:51.856+00:00",
+    "status": "success",
+    "end": "2024-11-01T16:59:52.064+00:00"
+}
