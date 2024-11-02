@@ -68,6 +68,8 @@ The first step is to represent the TDs in the PostgreSQL database. We are using 
 
 <img width="860" alt="image" src="https://github.com/user-attachments/assets/32d2a478-e249-467e-ac27-2adc6773d008">
 
+TODO: new screenshot to include fields for security
+
 The TDs are stored in the table "thing" along with the child tables "property" and "action". The table registry is used to store the addresses of the registries. The next step is to load the data. The platform allows to express this extract-load-transform process using [JSONata](https://jsonata.org/) with some extensions for accessing [REST services and databases](https://dashjoin.github.io/platform/latest/developer-reference/#dashjoin-expression-reference).
 
 Loading all TDs from the registry can be done using the following code:
@@ -132,7 +134,7 @@ The user interface for displaying device properties makes use of the platform's 
 The screenshot above shows a form that gathers data for performing an action. Wot Manager makes use of the JSON Schema descriptions found in the TDs. These can be fed directly into the platform's button widget, describing the form to display to the user. Note that the form tooltips and select values are taken directly from the JSON Schema property descriptions and type enums respectively. The form also automatically performs any input validation defined in the schema. In this example, some inputs are required to be present. The definition of the button widget is as follows:
 
 ```
-// TODO: POST ist hard coded
+// TODO: POST is hard coded
 {
   "print": "($curl('POST', value.href & $call('template', form), form); $refresh();)",
   "schemaExpression": "value.vars ? {'properties': value.vars} : value.input",
