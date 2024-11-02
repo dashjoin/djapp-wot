@@ -262,7 +262,20 @@ $refresh();
 
 #### Planning
 
-Large language models not only have the ability to extract structured information from a command. They can also act as agents on behalf of the user and use external tools in order to achieve a goal. 
+Large language models not only have the ability to extract structured information from a command. They can also act as agents on behalf of the user and use external tools in order to achieve a goal. Since this process is way more complex compared to the information extraction shown in the previous section, we employ the [LlamaIndex](https://www.llamaindex.ai/) Python library for this. LlamaIndex streamlines the process of writing tools and making them available to a generic AI agent. Tools can be any [OpenAPI service](https://docs.llamaindex.ai/en/stable/api_reference/tools/openapi/) or any [Python function](https://docs.llamaindex.ai/en/stable/module_guides/deploying/agents/tools/#functiontool).
+
+The textual tool and parameter metadata is critical in describing when to use a tool to the AI agent. Therefore, we do not rely on the WoT action descriptions along. Instead, we require the administrator to explicitly define actions to be exposed to the AI in the platform's [function catalog](https://dashjoin.github.io/platform/latest/developer-reference/#functions).
+
+These functions are wrapped in a Python function tool that exposes the action to the AI. If called, it also handles the authentication from the Python stack back to the platform. Consider the following pseudocode:
+
+```
+query the platform's function catalog
+wrap functions in a LlamaIndex FunctionTool
+register the functions with the LLM
+call the LLM with the prompt obtained from the user
+```
+
+TODO: add AI trace
 
 ## Use Cases 
 
