@@ -51,9 +51,7 @@ The first step is to represent the TDs in the PostgreSQL database. We are using 
 
 ![image](https://github.com/user-attachments/assets/9a56672f-f2c4-4cde-9e00-22d1bf6f74c0)
 
-TODO: new screenshot to include fields for security
-
-The TDs are stored in the table "thing" along with the child tables **property**, **event** and **action**. The table registry is used to store the addresses of the registries.
+The TDs are stored in the table "thing" along with the child tables **property**, **event** and **action**. These four tables hold the information loaded from the registries. In addition, the **thing** table have the columns **credentials** and **role**, which define how devices are being accessed and how users are authorized for devices. The table registry is used to store the addresses of the registries. The table **saref:LightSwitch** represents tables that are created for any [WoT semantic annotation](https://www.w3.org/TR/wot-thing-description/#semantic-annotations). These tables are used to drive dashboards over multiple devices of the same type.
 
 #### Security and Access Control
 
