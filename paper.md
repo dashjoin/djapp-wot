@@ -103,13 +103,7 @@ The resulting list of TDs can then be mapped into the DB schema using mapping ex
 
 This expression collects the action's JSON Schema from either the uriVariables or the "input" fields. Note that the platform offers a [streaming mode](https://dashjoin.github.io/platform/latest/developer-reference/#etl) to support importing large sets of TDs.
 
-#### Semantic Data Harmonization
-
-TODO
-
 #### Generic Properties and Actions
-
-TODO: mapping
 
 The user interface for displaying device properties makes use of the platform's display widget. It is placed in a container that shows a widget for every device property. The widget simply displays the result of the HTTP request to the device WoT API. The device href is obtained from the foreach loop variable "value" which in turn is read from the database by looking up all properties of the current thing. Finally, the authorization header is obtained via the mechanism described in the security section:
 
@@ -125,7 +119,6 @@ The user interface for displaying device properties makes use of the platform's 
 The screenshot above shows a form that gathers data for performing an action. Wot Manager makes use of the JSON Schema descriptions found in the TDs. These can be fed directly into the platform's button widget, describing the form to display to the user. Note that the form tooltips and select values are taken directly from the JSON Schema property descriptions and type enums respectively. The form also automatically performs any input validation defined in the schema. In this example, some inputs are required to be present. The definition of the button widget is as follows:
 
 ```
-// TODO: POST is hard coded
 {
   "print": "($curl('POST', value.href & $call('template', form), form); $refresh();)",
   "schemaExpression": "value.vars ? {'properties': value.vars} : value.input",
@@ -135,6 +128,39 @@ The screenshot above shows a form that gathers data for performing an action. Wo
 ```
 
 The field schemaExpression specifies a JSONata expression to compute the JSON Schema for the form. The field "print" specifies the action to perform when the button is pressed. We perform two commands. First, the action is performed. The call to the template subroutine helps to handle cases where the inputs are provided as URI variables. The call to refresh triggers the UI to redraw itself, getting potentially updated device values in the process, e.g. the water level being lower after a beverage was brewed.
+
+#### Semantic Data Harmonization
+
+WoT uses semantic annotations in order to describe things by associating them with a concept via the **@type** field. Consider the following annotation:
+
+```
+    "@context": [
+        "https://www.w3.org/2022/wot/td/v1.1",
+        { "saref": "https://w3id.org/saref#" }
+    ],
+    "title": "MyLampThing",
+    "@type": "saref:LightSwitch",
+```
+
+It states, that the thing is a light switch as standardized by the [Smart Applications REFerence Ontology](https://saref.etsi.org/) (SAREF). Having this annotation allows us to group things into homogeneous categories and visualize an entire category on a dashboard rather than just a single thing. For instance, we might want to compute the percentage of lights being turned on in a building.
+
+Since these kinds of dashboards are naturally driven by database queries, we materialize the thing properties in a set of tables, one table for each **@type** we encounter:
+
+```
+(
+  /* only query data that is accessible w/o credentials to avoid having to secure the data and dashboards */
+  $things := $all("wot", "thing")[credentials = null].
+  ( 
+    /* for each thing, get its properties */
+    $id := id;
+    $ ~> | $ | {"x": $all("wot", "property")[thing = $id].{ "id": $id, name : $curl("GET", href) }} |
+  ){
+    /* group by type */
+    `type`: x
+  }
+)
+```
+
 
 #### Natural Language Commands
 
