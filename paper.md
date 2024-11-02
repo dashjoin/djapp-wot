@@ -161,6 +161,8 @@ Since these kinds of dashboards are naturally driven by database queries, we mat
 )
 ```
 
+<img width="907" alt="image" src="https://github.com/user-attachments/assets/4b425a9e-59f5-4d2f-b6fb-73ee27ffc5ad">
+
 
 #### Natural Language Commands
 
