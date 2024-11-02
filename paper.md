@@ -20,6 +20,8 @@ WoT Manager offers the following features:
 
 * **Visualization**: Once device data is aligned to a common model, it can be visualized accordingly. WoT Manager offers comprehensive charts fed from data received from heterogeneous devices.
 
+* **Incorporating Background Knowledge**: WoT Manager can be augmented with background information about the things. This might be specification information gathered off the datasheet for a thing or information about the thing from an asset management system (e.g. the location of a thing on a factory shopfloor). This allows including this background knowledge in visualizations, for instance, showing the power consumption per building floor.
+
 * **Automation**: Besides visualization, a second benefit of a common information model is the ability to perform actions on different devices. Let's assume we would like to dim all lights to 50%, but the lights require this action to be triggered in a slightly different way. This can be achieved by mapping the semantic intention to the concrete call syntax, just like we do for incoming property data.
 
 * **Natural Language Commands**: WoT Manager offers traditional forms for triggering device actions. To make things more usable, for instance in a smart home setting, WoT manager also provides natural language commands.
@@ -161,12 +163,47 @@ Since these kinds of dashboards are naturally driven by database queries, we mat
 )
 ```
 
-<img width="907" alt="image" src="https://github.com/user-attachments/assets/4b425a9e-59f5-4d2f-b6fb-73ee27ffc5ad">
+We can use the platform's [Analytics Widget](https://dashjoin.github.io/platform/latest/developer-reference/#analytics) to easily display tables over this data and to expose fiters (e.g. only show things on a certain floor).
+
+<img width="960" alt="image" src="https://github.com/user-attachments/assets/22f6989c-3958-492c-8660-d37067ee94af">
+
+So far so good. But in the real world, things of the same type might return data in a slightly different format or using a different property name. Consider the following example of three things reporting the current power consumption as:
+
+```
+{
+  "watt": 42
+}
+
+{
+  "power": {
+    "amount": 0.042,
+    "unit": "kW"
+  }
+}
+
+{
+  "power": {
+    "amount": 42,
+    "unit": "W"
+  }
+}
+```
+
+In this screnario, we need a small piece of mapping code. Luckily, JSONata is perfect for this task:
+
+```
+{
+    "watt": watt ? watt : power.amount * (power.unit = 'kW' ? 1000 : 1)
+}
+```
+
+This mapping is introduced in the loading procedure described in the beginning of this section. Note that we can add any other field mapping required for other devices in the expression above. If the field's value evaluates to undefined (i.e. neither the watt or power fields are present in the input), the key is omitted altogether.
+
+#### Incorporating Background Knowledge
+
 
 
 #### Natural Language Commands
-
-<img width="960" alt="image" src="https://github.com/user-attachments/assets/22f6989c-3958-492c-8660-d37067ee94af">
 
 ![image](https://github.com/user-attachments/assets/371fa9d1-1b07-4652-8e3e-236eff1cb050)
 
@@ -225,7 +262,7 @@ $refresh();
 
 #### Planning
 
-TODO
+Large language models not only have the ability to extract structured information from a command. They can also act as agents on behalf of the user and use external tools in order to achieve a goal. 
 
 ## Use Cases 
 
@@ -236,6 +273,5 @@ TODO
 ## Conclusion 
 
 TODO
-
 
 TODO: WoT events
