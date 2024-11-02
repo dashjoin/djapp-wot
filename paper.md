@@ -28,7 +28,7 @@ WoT Manager offers the following features:
 
 ### Architecture 
 
-<img width="1449" alt="image" src="https://github.com/user-attachments/assets/88d14ca8-5557-4859-89ee-8617cdbc010b">
+![image](https://github.com/user-attachments/assets/90a9cfd5-38cd-41b4-b772-97c2132bc655)
 
 This figure describes the WoT manager architecture. We see the following components:
 
