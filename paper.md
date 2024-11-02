@@ -43,7 +43,7 @@ This figure describes the WoT manager architecture. We see the following compone
 
 ### Implementation 
 
-In this section, we describe the implementation of the features using the architecture presented above.
+In this section, we describe the implementation of the features using the architecture presented above. The platform uses [JSONata](https://jsonata.org/) to express application logic in a concise way. JSONata is a functional query and transformation language for JSON data. The platform extends JSONata with a number of [custom functions](https://dashjoin.github.io/platform/latest/developer-reference/#dashjoin-expression-reference) for accessing databases, REST services, and many other features.
 
 #### Data Model
 
@@ -55,13 +55,29 @@ TODO: new screenshot to include fields for security
 
 The TDs are stored in the table "thing" along with the child tables **property**, **event** and **action**. The table registry is used to store the addresses of the registries.
 
+#### Security and Access Control
+
+When managing multiple devices, there are two principal approaches:
+
+* Impersonation: WoT manager leverages an identity management system (IDM) in conjunction with role-based access control (RBAC) to authenticate and authorize a user on a device. The actual call is being made using the device credentials. These are stored in the WoT manager and are not known to the users
+* Direct use: User knows secrets to access a device. WoT manager does not manage any secrets and only passes calls along
+
+We choose the impersonation approach. An administrator setting up the system will discover and configure the devices. In practice, this could be a shop floor manager in a factory or an electrician configuring a smart home. End users simply authenticate via OpenID. The authorization for individual devices is managed via the platform RBAC as described below.
+
+The platform can securely store [credentials](https://dashjoin.github.io/platform/latest/developer-reference/#credentials). The WoT specification allows defining security descriptors to the device or individual actions, properties, and events. The system currently supports security only on a thing level. This is achieved by defining credential sets and referencing them by name from the thing table. Any call performed from WoT Manager can be authenticated by reading the credential name and attaching this name to the curl HTTP header (the platform in turn looks up the secret from the credential store):
+
+```
+$credential = $read("wot", "thing", id).credential;
+$curl(..., $credential ? {"Authorization": $credential} : {});
+```
+
+#### Role Based Access Control
+
+Since WoT Manager impersonates the users when communicating with the devices, we need to make sure that access control is enforced in the system. This is realized by associating device credentials with a system role. This means that only users in that role are allowed to use the credentials. The system also restricts user access to things they are not allowed to access by introducing a role column on the things table. When querying the things table, the system only returns those rows where the role column has a role the current user is in.
+
 #### Discovery
 
-When setting up Wot Manager, the various registries and be entered in the corresponding table. Technically, a registry provides a list of thing descriptions (TDs). Note that some things also publish their own TD. We treat these devices as device plus mini registry.
-
-The next step is to load the data. The platform allows to express this extract-load-transform process using [JSONata](https://jsonata.org/) with some extensions for accessing [REST services and databases](https://dashjoin.github.io/platform/latest/developer-reference/#dashjoin-expression-reference).
-
-Loading all TDs from the registry can be done using the following code:
+When setting up Wot Manager, the various registries and be entered in the corresponding table. Technically, a registry provides a list of thing descriptions (TDs). Note that some things also publish their own TD. We treat these devices as device plus mini registry. Loading all TDs from the registry can be done using the following code:
 
 ```
 /* load all registries and iterate over them */
@@ -78,8 +94,7 @@ The resulting list of TDs can then be mapped into the DB schema using mapping ex
       "thing": $id,
       "name": $k,
       "description": $v.description,
-      // TODO: currently limited to HTTP
-      // if only other protocols are offered, we should replace the href with that of the API gateway
+      /* currently limited to HTTP. If only other protocols are offered, replace the href with that of the API gateway */
       "href": $replace(forms[$."contentType" = "application/json"].href[$contains($, "http")], /\{.*\}/, ""),
       "vars": $vars ? $vars : uriVariables,
       "input": input,
@@ -89,17 +104,6 @@ The resulting list of TDs can then be mapped into the DB schema using mapping ex
 ```
 
 This expression collects the action's JSON Schema from either the uriVariables or the "input" fields. Note that the platform offers a [streaming mode](https://dashjoin.github.io/platform/latest/developer-reference/#etl) to support importing large sets of TDs.
-
-#### Security and Access Control
-
-The platform can securely store [credentials](https://dashjoin.github.io/platform/latest/developer-reference/#credentials). The WoT specification allows defining security descriptors to the device or individual actions, properties, and events. The system currently supports security only on a thing level. This is achieved by defining credential sets and referencing them by name from the thing table. Any call performed from WoT Manager can be authenticated by reading the credential name and attaching this name to the curl HTTP header (the platform in turn looks up the secret from the credential store):
-
-```
-$credential = $read("wot", "thing", id).credential;
-$curl(..., $credential ? {"Authorization": $credential} : {});
-```
-
-Since WoT Manager impersonates the users when communicating with the devices, we need to make sure that access control is enforced in the system. This is realized by associating device credentials with a system role. This means that only users in that role are allowed to use the credentials. The system also restricts user access to things they are not allowed to access by introducing a role column on the things table. When querying the things table, the system only returns those rows where the role column has a role the current user is in.
 
 #### Semantic Data Harmonization
 
