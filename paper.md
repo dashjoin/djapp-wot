@@ -49,7 +49,7 @@ In this section, we describe the implementation of the features using the archit
 
 The first step is to represent the TDs in the PostgreSQL database. We are using the following schema for that:
 
-<img width="860" alt="image" src="https://github.com/user-attachments/assets/32d2a478-e249-467e-ac27-2adc6773d008">
+![image](https://github.com/user-attachments/assets/9a56672f-f2c4-4cde-9e00-22d1bf6f74c0)
 
 TODO: new screenshot to include fields for security
 
