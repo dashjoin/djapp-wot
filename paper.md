@@ -189,7 +189,7 @@ So far so good. But in the real world, things of the same type might return data
 }
 ```
 
-In this screnario, we need a small piece of mapping code. Luckily, JSONata is perfect for this task:
+In this scenario, we need a small piece of mapping code. Luckily, JSONata is perfect for this task:
 
 ```
 {
