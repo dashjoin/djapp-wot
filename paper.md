@@ -166,6 +166,8 @@ Since these kinds of dashboards are naturally driven by database queries, we mat
 
 #### Natural Language Commands
 
+<img width="960" alt="image" src="https://github.com/user-attachments/assets/22f6989c-3958-492c-8660-d37067ee94af">
+
 ![image](https://github.com/user-attachments/assets/371fa9d1-1b07-4652-8e3e-236eff1cb050)
 
 We're taking the form-based invocation a step further by introducing natural language commands. This feature takes advantage of the structured output mode of modern large language models. The following listing shows the configuration of the button widget. Rather than displaying a JSON Schema form corresponding to the action inputs, the widget shows a single text input that also allows voice inputs.
