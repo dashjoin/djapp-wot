@@ -12,38 +12,19 @@ Several [WoT SDKs and tools](https://www.w3.org/WoT/developers/) are already ava
 
 WoT Manager offers the following features:
 
-#### Discovery
+* **Discovery**: An important part of the WoT stack is the ability to [discover devices in a registry](https://www.w3.org/TR/wot-discovery/). Given credentials and addresses, WoT Manager can connect to several registries.
 
-An important part of the WoT stack is the ability to [discover devices in a registry](https://www.w3.org/TR/wot-discovery/). Given credentials and addresses, WoT Manager can connect to several registries. Technically, these provide a list of thing descriptions (TDs). Note that some things also publish their own TD. We treat these devices as device plus mini registry.
+* **Security**: Security is a cruicial aspect of IoT applications, specifically when actions such as opening doors or machine valves are concerned. The [WoT architecture document](https://www.w3.org/TR/wot-architecture10/#security) references well-known web security protocols which WoT Manager implements. 
 
-#### Security
+* **Semantic Data Harmonization**: WoT makes heavy use of semantically annotated JSON-LD. An implicit benefit of this technology is the ability to "understand" data. This allows WoT manager to map syntactically different but semantically similar data from devices onto a common information model.
 
-Security is a cruicial aspect of IoT applications, specifically when actions such as opening doors or machine valves are concerned. The [WoT architecture document](https://www.w3.org/TR/wot-architecture10/#security) references well-known web security protocols. When managing multiple devices, there are two principal approaches:
+* **Visualization**: Once device data is aligned to a common model, it can be visualized accordingly. WoT Manager offers comprehensive charts fed from data received from heterogeneous devices.
 
-* Impersonation: WoT manager leverages an identity management system (IDM) in conjunction with role-based access control (RBAC) to authenticate and authorize a user on a device. The actual call is being made using the device credentials. These are stored in the WoT manager and are not known to the users
-* Direct use: User knows secrets to access a device. WoT manager does not manage any secrets and only passes calls along
+* **Automation**: Besides visualization, a second benefit of a common information model is the ability to perform actions on different devices. Let's assume we would like to dim all lights to 50%, but the lights require this action to be triggered in a slightly different way. This can be achieved by mapping the semantic intention to the concrete call syntax, just like we do for incoming property data.
 
-We choose the impersonation approach. An administrator setting up the system will discover and configure the devices. In practice, this could be a shop floor manager in a factory or an electrician configuring a smart home. End users simply authenticate via OpenID and have immediate access to all devices assigned to them by the configured RBAC.  
+* **Natural Language Commands**: WoT Manager offers traditional forms for triggering device actions. To make things more usable, for instance in a smart home setting, WoT manager also provides natural language commands.
 
-#### Semantic Data Harmonization
-
-WoT makes heavy use of semantically annotated JSON-LD. An implicit benefit of this technology is the ability to "understand" data. This allows WoT manager to map syntactically different but semantically similar data from devices onto a common information model.
-
-#### Visualization
-
-Once device data is aligned to a common model, it can be visualized accordingly. WoT Manager offers comprehensive charts fed from data received from heterogeneous devices.
-
-#### Automation
-
-Besides visualization, a second benefit of a common information model is the ability to perform actions on different devices. Let's assume we would like to dim all lights to 50%, but the lights require this action to be triggered in a slightly different way. This can be achieved by mapping the semantic intention to the concrete call syntax, just like we do for incoming property data.
-
-#### Natural Language Commands
-
-WoT Manager offers traditional forms for triggering device actions. To make things more usable, for instance in a smart home setting, WoT manager also provides natural language commands.
-
-#### AI Planning
-
-Taking natural language commands a step further, WoT manager makes use of modern LLM's planning capabilities. A user can specify a goal in natural language. In turn, the system will figure out a way to accomplish this goal by invoking device actions.
+* **AI Planning**: Taking natural language commands a step further, WoT manager makes use of modern LLM's planning capabilities. A user can specify a goal in natural language. In turn, the system will figure out a way to accomplish this goal by invoking device actions.
 
 ### Architecture 
 
