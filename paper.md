@@ -32,7 +32,7 @@ WoT Manager offers the following features:
 
 This figure describes the WoT manager architecture. We see the following components:
 
-* The core application is built using the [Dashjoin Low Code platform](https://github.com/dashjoin/platform). The main motivation for this approach is the ability to quickly customize the generic management features with more specialized domain specific features. The platform consists of a horizontally scalable set of application servers and a shared configuration database that holds the application itself. Technically, this is a clone of the [WoT Manager GIT repository](https://github.com/dashjoin/djapp-wot).
+* The core application is built using the [Dashjoin Low Code platform](https://github.com/dashjoin/platform). The main motivation for this approach is the ability to quickly customize the generic management features with more specialized domain specific features. The platform consists of a horizontally scalable set of application servers and a shared config database that holds the application itself. Technically, this is a clone of the [WoT Manager GIT repository](https://github.com/dashjoin/djapp-wot).
 * OpenID capable IDM: The IDM is used to authenticate users accessing the WoT Manager. Any OpenID capable IDM can be used. The platform maps claims associated to the user in the IDM to platform roles, which in turn grant the user access to devices and device actions.
 * On top of the platform are the user interface as well as a REST API allowing 3rd party integrations.
 * The TDs are stored in a PostgrSQL database. Note that the platform also supports RDF stores that would enable SPARQL queries over the device descriptions.
@@ -43,6 +43,8 @@ This figure describes the WoT manager architecture. We see the following compone
 
 ### Implementation 
 
+In this section, we describe the implementation of the features using the architecture presented above.
+
 #### Data Model
 
 The first step is to represent the TDs in the PostgreSQL database. We are using the following schema for that:
@@ -51,15 +53,21 @@ The first step is to represent the TDs in the PostgreSQL database. We are using 
 
 TODO: new screenshot to include fields for security
 
-The TDs are stored in the table "thing" along with the child tables "property" and "action". The table registry is used to store the addresses of the registries. The next step is to load the data. The platform allows to express this extract-load-transform process using [JSONata](https://jsonata.org/) with some extensions for accessing [REST services and databases](https://dashjoin.github.io/platform/latest/developer-reference/#dashjoin-expression-reference).
+The TDs are stored in the table "thing" along with the child tables **property**, **event** and **action**. The table registry is used to store the addresses of the registries.
+
+#### Discovery
+
+When setting up Wot Manager, the various registries and be entered in the corresponding table. Technically, a registry provides a list of thing descriptions (TDs). Note that some things also publish their own TD. We treat these devices as device plus mini registry.
+
+The next step is to load the data. The platform allows to express this extract-load-transform process using [JSONata](https://jsonata.org/) with some extensions for accessing [REST services and databases](https://dashjoin.github.io/platform/latest/developer-reference/#dashjoin-expression-reference).
 
 Loading all TDs from the registry can be done using the following code:
 
-TODO: registry security
-
 ```
-$all("wot", "registry").href.
-  $curl("GET", $, {}, {})
+/* load all registries and iterate over them */
+$all("wot", "registry").
+  /* make a curl request to get the TDs (optionally consider required authorization) */
+  $curl("GET", href, {}, credential ? {"Authorization": credential} : {})
 ```
 
 The resulting list of TDs can then be mapped into the DB schema using mapping expression like the following one:
