@@ -1,4 +1,7 @@
-# AI Enabled WoT Management 
+# Generic and Extensible Web of Things Manager Using JSON Schema & AI
+
+[Andreas Eberhart](https://www.linkedin.com/in/andreas-eberhart-94264a44/), [Dashjoin](https://dashjoin.com/)  
+[Ege Korkan](https://egekorkan.com/), [Siemens](https://www.siemens.com/)
 
 ## Introduction 
 
@@ -14,13 +17,13 @@ WoT Manager offers the following features:
 
 * **Discovery**: An important part of the WoT stack is the ability to [discover devices in a registry](https://www.w3.org/TR/wot-discovery/). Given credentials and addresses, WoT Manager can connect to several registries.
 
-* **Security**: Security is a cruicial aspect of IoT applications, specifically when actions such as opening doors or machine valves are concerned. The [WoT architecture document](https://www.w3.org/TR/wot-architecture10/#security) references well-known web security protocols which WoT Manager implements. 
+* **Security**: Security is a cruicial aspect of IoT applications, specifically when actions such as opening doors or machine valves are concerned. The [WoT architecture document](https://www.w3.org/TR/wot-architecture10/#security) references well-known web security protocols which WoT Manager supports. 
 
 * **Semantic Data Harmonization**: WoT makes heavy use of semantically annotated JSON-LD. An implicit benefit of this technology is the ability to "understand" data. This allows WoT manager to map syntactically different but semantically similar data from devices onto a common information model.
 
-* **Visualization**: Once device data is aligned to a common model, it can be visualized accordingly. WoT Manager offers comprehensive charts fed from data received from heterogeneous devices.
+* **Visualization**: Once device data is aligned into a common model, it can be visualized accordingly. WoT Manager offers comprehensive charts fed from data received from heterogeneous devices.
 
-* **Incorporating Background Knowledge**: WoT Manager can be augmented with background information about the things. This might be specification information gathered off the datasheet for a thing or information about the thing from an asset management system (e.g. the location of a thing on a factory shopfloor). This allows including this background knowledge in visualizations, for instance, showing the power consumption per building floor.
+* **Incorporating Background Knowledge**: WoT Manager can be augmented with background information about the things. This might be specification information gathered off the device's datasheet or information about the thing from an asset management system (e.g. the location of a thing on a factory shopfloor). This allows including this background knowledge in visualizations, for instance, showing the power consumption per building floor.
 
 * **Automation**: Besides visualization, a second benefit of a common information model is the ability to perform actions on different devices. Let's assume we would like to dim all lights to 50%, but the lights require this action to be triggered in a slightly different way. This can be achieved by mapping the semantic intention to the concrete call syntax, just like we do for incoming property data.
 
@@ -37,7 +40,7 @@ This figure describes the WoT manager architecture. We see the following compone
 * The core application is built using the [Dashjoin Low Code platform](https://github.com/dashjoin/platform). The main motivation for this approach is the ability to quickly customize the generic management features with more specialized domain specific features. The platform consists of a horizontally scalable set of application servers and a shared config database that holds the application itself. Technically, this is a clone of the [WoT Manager GIT repository](https://github.com/dashjoin/djapp-wot).
 * OpenID capable IDM: The IDM is used to authenticate users accessing the WoT Manager. Any OpenID capable IDM can be used. The platform maps claims associated to the user in the IDM to platform roles, which in turn grant the user access to devices and device actions.
 * On top of the platform are the user interface as well as a REST API allowing 3rd party integrations.
-* The TDs are stored in a PostgrSQL database. Note that the platform also supports RDF stores that would enable SPARQL queries over the device descriptions.
+* The thing descriptions (TDs) are stored in a PostgrSQL database. Note that the platform also supports RDF stores that would enable SPARQL queries over the device descriptions.
 * The platform uses an LLM for the natural language and planning use cases. The LLM tool integration is done using the Python SDK available in Dashjoin Studio.
 * The device connectivity uses RESTful APIs. We leverage APIs bridges to make other protocols like MQTT or COAP available via HTTP.
 * The [RBAC](https://dashjoin.github.io/platform/latest/security/#access-control) and [credential manager](https://dashjoin.github.io/platform/latest/developer-reference/#credentials) are part of the platform.
@@ -77,7 +80,7 @@ Since WoT Manager impersonates the users when communicating with the devices, we
 
 #### Discovery
 
-When setting up Wot Manager, the various registries and be entered in the corresponding table. Technically, a registry provides a list of thing descriptions (TDs). Note that some things also publish their own TD. We treat these devices as device plus mini registry. Loading all TDs from the registry can be done using the following code:
+When setting up Wot Manager, the various registries and be entered in the corresponding table. Technically, a registry provides a list of TDs. Note that some things also publish their own TD. We treat these devices as device plus mini registry. Loading all TDs from the registry can be done using the following code:
 
 ```
 /* load all registries and iterate over them */
