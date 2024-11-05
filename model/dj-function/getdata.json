@@ -1,5 +1,0 @@
-{
-    "ID": "getdata",
-    "djClassName": "org.dashjoin.function.Invoke",
-    "expression": "(\n  $things := $all(\"wot\", \"thing\")[credentials = null].\n  ( \n    $id := id;\n    $ ~> | $ | {\"x\": $all(\"wot\", \"property\")[thing = $id].{ \"id\": $id, name : $curl(\"GET\", href) }} |\n  ){\n    `type`: x\n  }\n)"
-}

@@ -3,7 +3,7 @@
     "djClassName": "com.dashjoin.function.ETL",
     "expressions": {
         "foreach": "",
-        "expression": "$call(\"getdata\")"
+        "expression-pointer": "0.jsonata"
     },
     "createSchema": true,
     "ignoreErrors": false,

@@ -1,0 +1,9 @@
+(
+  $things := $all("wot", "thing")[credentials = null].
+  ( 
+    $id := id;
+    $ ~> | $ | {"x": $all("wot", "property")[thing = $id].{ "id": $id, name : $curl("GET", href) }} |
+  ){
+    `type`: x
+  }
+) 
