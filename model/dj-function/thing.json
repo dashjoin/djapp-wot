@@ -3,7 +3,7 @@
     "ID": "thing",
     "expressions": {
         "foreach": "",
-        "expression": "$call(\"discovery\").{\n  \"id\": id,\n  \"description\": description,\n  \"title\": title,\n  \"type\": $.\"@type\",\n  \"href\": href,\n  \"credentials\": credentials,\n  \"role\": role\n}"
+        "expression-pointer": "0.jsonata"
     },
     "database": "wot",
     "oldData": "Delete All",
@@ -21,5 +21,6 @@
     },
     "start": "2024-10-10T09:55:23.731+00:00",
     "status": "success",
-    "end": "2024-10-10T09:55:24.092+00:00"
+    "end": "2024-10-10T09:55:24.092+00:00",
+    "comment": "Load TD"
 }

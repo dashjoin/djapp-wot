@@ -3,7 +3,7 @@
     "djClassName": "com.dashjoin.function.ETL",
     "expressions": {
         "foreach": "",
-        "expression": "$call(\"discovery\").(\n  $id := id;\n  $each(properties, function($v, $k) {\n    {\n      \"thing\": $id,\n      \"name\": $k,\n      \"description\": $v.description,\n      \"href\": $replace($v.forms[$.\"htv:methodName\" = \"GET\"][$.\"contentType\" = \"application/json\"][0].href, /\\{.*\\}/, \"\")\n    }\n  })\n)[href]"
+        "expression-pointer": "0.jsonata"
     },
     "mappings": {
         "property": {
@@ -27,5 +27,6 @@
     "database": "wot",
     "start": "2024-10-10T07:35:33.488+00:00",
     "status": "success",
-    "end": "2024-10-10T07:35:33.855+00:00"
+    "end": "2024-10-10T07:35:33.855+00:00",
+    "comment": "Load TD"
 }

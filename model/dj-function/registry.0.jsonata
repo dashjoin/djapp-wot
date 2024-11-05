@@ -1,0 +1,1 @@
+$openCsv("file:upload/registry.csv")

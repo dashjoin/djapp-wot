@@ -1,5 +1,6 @@
 {
     "djClassName": "org.dashjoin.function.Invoke",
     "ID": "discovery",
-    "expression": "$all(\"wot\", \"registry\").ID.\n(\n  $href := $;\n  $curl(\"GET\", $) ~> | $ | {\"href\": $href} |\n)"
+    "expression-pointer": "0.jsonata",
+    "comment": "Load TD"
 }

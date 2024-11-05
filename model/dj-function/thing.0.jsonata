@@ -1,0 +1,9 @@
+$call("discovery").{
+  "id": id,
+  "description": description,
+  "title": title,
+  "type": $."@type",
+  "href": href,
+  "credentials": credentials,
+  "role": role
+}

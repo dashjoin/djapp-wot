@@ -6,5 +6,6 @@
     "apiKey": false,
     "roles": [
         "authenticated"
-    ]
+    ],
+    "comment": "Thing credentials"
 }

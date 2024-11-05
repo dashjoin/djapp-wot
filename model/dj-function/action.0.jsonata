@@ -1,0 +1,15 @@
+$call("discovery").(
+  $id := id;
+  $vars := uriVariables;
+  $each(actions, function($v, $k) {
+    $v.{
+      "thing": $id,
+      "name": $k,
+      "description": $v.description,
+      "href": $replace((forms[$."contentType" = "application/json"].href[$contains($, "http")])[0], /\{.*\}/, ""),
+      "vars": $vars ? $vars : uriVariables,
+      "input": input,
+      "output": output
+    }
+  })
+)

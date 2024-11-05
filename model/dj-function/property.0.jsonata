@@ -1,0 +1,11 @@
+$call("discovery").(
+  $id := id;
+  $each(properties, function($v, $k) {
+    {
+      "thing": $id,
+      "name": $k,
+      "description": $v.description,
+      "href": $replace($v.forms[$."htv:methodName" = "GET"][$."contentType" = "application/json"][0].href, /\{.*\}/, "")
+    }
+  })
+)[href]
