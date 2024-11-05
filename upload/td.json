@@ -9,6 +9,7 @@
         "id": "urn:uuid:971f1c52-4cb1-4ec7-a3f2-e933b745df11",
         "@type": "saref:Sensor",
         "title": "Energy Sensor",
+        "description": "Energy Sensor",
         "securityDefinitions": {
             "basic_sc": {
                 "scheme": "basic",
@@ -41,6 +42,7 @@
         "id": "urn:uuid:971f1c52-4cb1-4ec7-a3f2-e933b745df12",
         "@type": "saref:Sensor",
         "title": "Energy Sensor",
+        "description": "Energy Sensor",
         "securityDefinitions": {
             "basic_sc": {
                 "scheme": "basic",
@@ -73,6 +75,7 @@
         "id": "urn:uuid:971f1c52-4cb1-4ec7-a3f2-e933b745df13",
         "@type": "saref:Sensor",
         "title": "Energy Sensor",
+        "description": "Energy Sensor",
         "securityDefinitions": {
             "basic_sc": {
                 "scheme": "basic",
@@ -105,6 +108,7 @@
         "id": "urn:uuid:971f1c52-4cb1-4ec7-a3f2-e933b745df14",
         "@type": "saref:Sensor",
         "title": "Energy Sensor",
+        "description": "Energy Sensor",
         "securityDefinitions": {
             "basic_sc": {
                 "scheme": "basic",
@@ -137,6 +141,7 @@
         "id": "urn:uuid:971f1c52-4cb1-4ec7-a3f2-e933b745df15",
         "@type": "saref:Sensor",
         "title": "Energy Sensor",
+        "description": "Energy Sensor",
         "securityDefinitions": {
             "basic_sc": {
                 "scheme": "basic",
@@ -169,6 +174,7 @@
         "id": "urn:uuid:971f1c52-4cb1-4ec7-a3f2-e933b745df16",
         "@type": "saref:Sensor",
         "title": "Energy Sensor",
+        "description": "Energy Sensor",
         "securityDefinitions": {
             "basic_sc": {
                 "scheme": "basic",
@@ -201,6 +207,7 @@
         "id": "urn:uuid:971f1c52-4cb1-4ec7-a3f2-e933b745df17",
         "@type": "saref:Sensor",
         "title": "Energy Sensor",
+        "description": "Energy Sensor",
         "securityDefinitions": {
             "basic_sc": {
                 "scheme": "basic",
@@ -233,6 +240,7 @@
         "id": "urn:uuid:971f1c52-4cb1-4ec7-a3f2-e933b745df18",
         "@type": "saref:Sensor",
         "title": "Energy Sensor",
+        "description": "Energy Sensor",
         "securityDefinitions": {
             "basic_sc": {
                 "scheme": "basic",
@@ -265,6 +273,7 @@
         "id": "urn:uuid:971f1c52-4cb1-4ec7-a3f2-e933b745df19",
         "@type": "saref:Sensor",
         "title": "Energy Sensor",
+        "description": "Energy Sensor",
         "securityDefinitions": {
             "basic_sc": {
                 "scheme": "basic",
