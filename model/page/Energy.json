@@ -1,0 +1,32 @@
+{
+    "ID": "Energy",
+    "layout": {
+        "widget": "page",
+        "children": [
+            {
+                "columns": [
+                    {
+                        "name": "status",
+                        "aggregation": "COUNT"
+                    },
+                    {
+                        "name": "floor",
+                        "aggregation": "GROUP_BY"
+                    }
+                ],
+                "filter": [
+                    {
+                        "name": "status",
+                        "operator": "BETWEEN",
+                        "input": "slider"
+                    }
+                ],
+                "database": "wot",
+                "query": "energy",
+                "table": "saref:Sensor",
+                "title": "Number of Energy Readings in Given Range & per Floor",
+                "widget": "analytics"
+            }
+        ]
+    }
+}
