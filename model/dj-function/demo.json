@@ -1,0 +1,26 @@
+{
+    "djClassName": "com.dashjoin.function.ETL",
+    "ID": "demo",
+    "expressions": {
+        "foreach": "",
+        "expression": "$openJson(\"file:upload/demo.json\")"
+    },
+    "mappings": {
+        "demo": {
+            "sourceTable": "table",
+            "extractColumn": null,
+            "extractKey": null,
+            "pk": null,
+            "rowMapping": null,
+            "rowFilter": null
+        }
+    },
+    "createSchema": true,
+    "ignoreErrors": false,
+    "workerThreads": null,
+    "oldData": "Delete All",
+    "database": "wot",
+    "start": "2024-11-05T14:36:27.867+00:00",
+    "status": "success",
+    "end": "2024-11-05T14:36:28.917+00:00"
+}

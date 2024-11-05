@@ -1,0 +1,74 @@
+[
+    {
+        "id":1,
+        "sensor": {
+            "watt": 42
+        }
+    },
+    {
+        "id":2,
+        "sensor": {
+            "watt": 62
+        }
+    },
+    {
+        "id":3,
+        "sensor": {
+            "watt": 33
+        }
+    },
+    {
+        "id":4,
+        "sensor": {
+            "power": {
+                "amount": 0.032,
+                "unit": "kW"
+            }
+        }
+    },
+    {
+        "id":5,
+        "sensor": {
+            "power": {
+                "amount": 0.077,
+                "unit": "kW"
+            }
+        }
+    },
+    {
+        "id":6,
+        "sensor": {
+            "power": {
+                "amount": 0.058,
+                "unit": "kW"
+            }
+        }
+    },
+    {
+        "id":7,
+        "sensor": {
+            "power": {
+                "amount": 12,
+                "unit": "W"
+            }
+        }
+    },
+    {
+        "id":8,
+        "sensor": {
+            "power": {
+                "amount": 42,
+                "unit": "W"
+            }
+        }
+    },
+    {
+        "id":9,
+        "sensor": {
+            "power": {
+                "amount": 50,
+                "unit": "W"
+            }
+        }
+    }
+]

@@ -1,0 +1,25 @@
+{
+    "djClassName": "com.dashjoin.function.ETL",
+    "ID": "datasheet",
+    "expressions": {
+        "foreach": "",
+        "expression": "$openCsv(\"file:upload/datasheet.csv\")"
+    },
+    "database": "wot",
+    "mappings": {
+        "datasheet": {
+            "sourceTable": "table",
+            "extractColumn": null,
+            "extractKey": null,
+            "pk": null,
+            "rowMapping": null,
+            "rowFilter": null
+        }
+    },
+    "oldData": "Delete All",
+    "createSchema": true,
+    "ignoreErrors": false,
+    "start": "2024-11-05T14:50:34.285+00:00",
+    "status": "success",
+    "end": "2024-11-05T14:50:35.124+00:00"
+}

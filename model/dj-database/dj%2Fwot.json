@@ -92,6 +92,14 @@
                     "displayWith": "fk"
                 }
             }
+        },
+        "assets": {
+            "properties": {
+                "datasheet": {
+                    "ref": "dj/wot/datasheet/ID",
+                    "displayWith": "fk"
+                }
+            }
         }
     },
     "username": "postgres",
