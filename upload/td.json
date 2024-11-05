@@ -1,26 +1,290 @@
-{
-    "@context": "https://www.w3.org/2022/wot/td/v1.1",
-    "id": "urn:auth",
-    "title": "Basic auth",
-    "securityDefinitions": {
-        "basic_sc": {
-            "scheme": "basic",
-            "in": "header"
-        }
+[
+    {
+        "@context": [
+            "https://www.w3.org/2022/wot/td/v1.1",
+            {
+                "saref": "https://w3id.org/saref#"
+            }
+        ],
+        "id": "urn:uuid:971f1c52-4cb1-4ec7-a3f2-e933b745df11",
+        "@type": "saref:Sensor",
+        "title": "Energy Sensor",
+        "securityDefinitions": {
+            "basic_sc": {
+                "scheme": "basic",
+                "in": "header"
+            }
+        },
+        "security": "basic_sc",
+        "properties": {
+            "status": {
+                "type": "string",
+                "forms": [
+                    {
+                        "href": "https://wot.run.dashjoin.com/rest/database/crud/wot/demo/1",
+                        "contentType": "application/json",
+                        "htv:methodName": "GET"
+                    }
+                ]
+            }
+        },
+        "credentials": "wot-cred",
+        "role": "authenticated"
     },
-    "security": "basic_sc",
-    "properties": {
-        "status": {
-            "type": "string",
-            "forms": [
-                {
-                    "href": "https://wot.run.dashjoin.com/rest/manage/version",
-                    "contentType": "application/json",
-                    "htv:methodName": "GET"
-                }
-            ]
-        }
+    {
+        "@context": [
+            "https://www.w3.org/2022/wot/td/v1.1",
+            {
+                "saref": "https://w3id.org/saref#"
+            }
+        ],
+        "id": "urn:uuid:971f1c52-4cb1-4ec7-a3f2-e933b745df12",
+        "@type": "saref:Sensor",
+        "title": "Energy Sensor",
+        "securityDefinitions": {
+            "basic_sc": {
+                "scheme": "basic",
+                "in": "header"
+            }
+        },
+        "security": "basic_sc",
+        "properties": {
+            "status": {
+                "type": "string",
+                "forms": [
+                    {
+                        "href": "https://wot.run.dashjoin.com/rest/database/crud/wot/demo/2",
+                        "contentType": "application/json",
+                        "htv:methodName": "GET"
+                    }
+                ]
+            }
+        },
+        "credentials": "wot-cred",
+        "role": "authenticated"
     },
-    "credentials": "wot-cred",
-    "role": "authenticated"
-}
+    {
+        "@context": [
+            "https://www.w3.org/2022/wot/td/v1.1",
+            {
+                "saref": "https://w3id.org/saref#"
+            }
+        ],
+        "id": "urn:uuid:971f1c52-4cb1-4ec7-a3f2-e933b745df13",
+        "@type": "saref:Sensor",
+        "title": "Energy Sensor",
+        "securityDefinitions": {
+            "basic_sc": {
+                "scheme": "basic",
+                "in": "header"
+            }
+        },
+        "security": "basic_sc",
+        "properties": {
+            "status": {
+                "type": "string",
+                "forms": [
+                    {
+                        "href": "https://wot.run.dashjoin.com/rest/database/crud/wot/demo/3",
+                        "contentType": "application/json",
+                        "htv:methodName": "GET"
+                    }
+                ]
+            }
+        },
+        "credentials": "wot-cred",
+        "role": "authenticated"
+    },
+    {
+        "@context": [
+            "https://www.w3.org/2022/wot/td/v1.1",
+            {
+                "saref": "https://w3id.org/saref#"
+            }
+        ],
+        "id": "urn:uuid:971f1c52-4cb1-4ec7-a3f2-e933b745df14",
+        "@type": "saref:Sensor",
+        "title": "Energy Sensor",
+        "securityDefinitions": {
+            "basic_sc": {
+                "scheme": "basic",
+                "in": "header"
+            }
+        },
+        "security": "basic_sc",
+        "properties": {
+            "status": {
+                "type": "string",
+                "forms": [
+                    {
+                        "href": "https://wot.run.dashjoin.com/rest/database/crud/wot/demo/4",
+                        "contentType": "application/json",
+                        "htv:methodName": "GET"
+                    }
+                ]
+            }
+        },
+        "credentials": "wot-cred",
+        "role": "authenticated"
+    },
+    {
+        "@context": [
+            "https://www.w3.org/2022/wot/td/v1.1",
+            {
+                "saref": "https://w3id.org/saref#"
+            }
+        ],
+        "id": "urn:uuid:971f1c52-4cb1-4ec7-a3f2-e933b745df15",
+        "@type": "saref:Sensor",
+        "title": "Energy Sensor",
+        "securityDefinitions": {
+            "basic_sc": {
+                "scheme": "basic",
+                "in": "header"
+            }
+        },
+        "security": "basic_sc",
+        "properties": {
+            "status": {
+                "type": "string",
+                "forms": [
+                    {
+                        "href": "https://wot.run.dashjoin.com/rest/database/crud/wot/demo/5",
+                        "contentType": "application/json",
+                        "htv:methodName": "GET"
+                    }
+                ]
+            }
+        },
+        "credentials": "wot-cred",
+        "role": "authenticated"
+    },
+    {
+        "@context": [
+            "https://www.w3.org/2022/wot/td/v1.1",
+            {
+                "saref": "https://w3id.org/saref#"
+            }
+        ],
+        "id": "urn:uuid:971f1c52-4cb1-4ec7-a3f2-e933b745df16",
+        "@type": "saref:Sensor",
+        "title": "Energy Sensor",
+        "securityDefinitions": {
+            "basic_sc": {
+                "scheme": "basic",
+                "in": "header"
+            }
+        },
+        "security": "basic_sc",
+        "properties": {
+            "status": {
+                "type": "string",
+                "forms": [
+                    {
+                        "href": "https://wot.run.dashjoin.com/rest/database/crud/wot/demo/6",
+                        "contentType": "application/json",
+                        "htv:methodName": "GET"
+                    }
+                ]
+            }
+        },
+        "credentials": "wot-cred",
+        "role": "authenticated"
+    },
+    {
+        "@context": [
+            "https://www.w3.org/2022/wot/td/v1.1",
+            {
+                "saref": "https://w3id.org/saref#"
+            }
+        ],
+        "id": "urn:uuid:971f1c52-4cb1-4ec7-a3f2-e933b745df17",
+        "@type": "saref:Sensor",
+        "title": "Energy Sensor",
+        "securityDefinitions": {
+            "basic_sc": {
+                "scheme": "basic",
+                "in": "header"
+            }
+        },
+        "security": "basic_sc",
+        "properties": {
+            "status": {
+                "type": "string",
+                "forms": [
+                    {
+                        "href": "https://wot.run.dashjoin.com/rest/database/crud/wot/demo/7",
+                        "contentType": "application/json",
+                        "htv:methodName": "GET"
+                    }
+                ]
+            }
+        },
+        "credentials": "wot-cred",
+        "role": "authenticated"
+    },
+    {
+        "@context": [
+            "https://www.w3.org/2022/wot/td/v1.1",
+            {
+                "saref": "https://w3id.org/saref#"
+            }
+        ],
+        "id": "urn:uuid:971f1c52-4cb1-4ec7-a3f2-e933b745df18",
+        "@type": "saref:Sensor",
+        "title": "Energy Sensor",
+        "securityDefinitions": {
+            "basic_sc": {
+                "scheme": "basic",
+                "in": "header"
+            }
+        },
+        "security": "basic_sc",
+        "properties": {
+            "status": {
+                "type": "string",
+                "forms": [
+                    {
+                        "href": "https://wot.run.dashjoin.com/rest/database/crud/wot/demo/8",
+                        "contentType": "application/json",
+                        "htv:methodName": "GET"
+                    }
+                ]
+            }
+        },
+        "credentials": "wot-cred",
+        "role": "authenticated"
+    },
+    {
+        "@context": [
+            "https://www.w3.org/2022/wot/td/v1.1",
+            {
+                "saref": "https://w3id.org/saref#"
+            }
+        ],
+        "id": "urn:uuid:971f1c52-4cb1-4ec7-a3f2-e933b745df19",
+        "@type": "saref:Sensor",
+        "title": "Energy Sensor",
+        "securityDefinitions": {
+            "basic_sc": {
+                "scheme": "basic",
+                "in": "header"
+            }
+        },
+        "security": "basic_sc",
+        "properties": {
+            "status": {
+                "type": "string",
+                "forms": [
+                    {
+                        "href": "https://wot.run.dashjoin.com/rest/database/crud/wot/demo/9",
+                        "contentType": "application/json",
+                        "htv:methodName": "GET"
+                    }
+                ]
+            }
+        },
+        "credentials": "wot-cred",
+        "role": "authenticated"
+    }
+]
