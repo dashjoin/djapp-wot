@@ -1,0 +1,5 @@
+{
+    "djClassName": "org.dashjoin.function.Invoke",
+    "ID": "mapping",
+    "expression-pointer": "0.jsonata"
+}

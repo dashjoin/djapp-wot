@@ -1,8 +1,13 @@
 (
-  $things := $all("wot", "thing")[credentials = null].
+  $things := $all("wot", "thing").
   ( 
     $id := id;
-    $ ~> | $ | {"x": $all("wot", "property")[thing = $id].{ "id": $id, name : $curl("GET", href) }} |
+    $ ~> | $ | {
+      "x": $all("wot", "property")[thing = $id].{ 
+        "id": $id, 
+        name : $call("mapping", $curl("GET", href, {}, {"Authorization": "wot-cred"})) 
+      }
+    } |
   ){
     `type`: x
   }
