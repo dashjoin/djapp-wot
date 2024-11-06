@@ -221,7 +221,7 @@ ORDER BY
   floor
 ```
 
-Based on this query, 
+Based on this query, we can easily visualize tables and charts with different aggregations and filters.
 
 ![image](https://github.com/user-attachments/assets/85074a89-d9be-4890-96a9-e7f6ec61b00d)
 
@@ -303,18 +303,8 @@ TODO: add AI trace
 
 In this section, we will show how the features introduced in the previous sections can be applied to real-world use cases. The use cases are included in the [online version](https://wot.run.dashjoin.com/) of WoT Manager for you to explore and experiment.
 
-### Building Automation
-
-The building automation use case descibes a scenario where several 
-
-### Smart City
-
-* Home automation to showcase dynamic forms 
-* Building management to showcase data harmonization 
-* Smart city to showcase speech and AI planning features (catching a bus in a foreign city) 
+TODO
 
 ## Conclusion 
 
 TODO
-
-TODO: WoT events
