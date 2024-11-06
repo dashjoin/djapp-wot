@@ -9,11 +9,9 @@ Internet of Things (IoT) describes applying internet technology to devices in ho
 
 Several [WoT SDKs and tools](https://www.w3.org/WoT/developers/) are already available. We are specifically interested in applications that make use of WoT’s generic nature. This means that rather than building a solution for one application area, we want the solution to be able to provide value on top of any WoT device. This concept was introduced by [Sciullo et al](https://arxiv.org/pdf/1910.04617). It allows for any WoT device to be connected. The system displays the device properties and displays generic forms for conveniently invoking device actions. We build on their ideas and extend them, specifically by introducing security, semantic mappings, and the ability to leverage artificial intelligence to interact with arbitrary devices more easily.
 
-## Wot Manager 
-
 ### Features 
 
-WoT Manager offers the following features:
+In this paper we present WoT Manager. It is a generic platform for managing any WoT device. Specifically, it offers the following features:
 
 * **Discovery**: An important part of the WoT stack is the ability to [discover devices in a registry](https://www.w3.org/TR/wot-discovery/). Given credentials and addresses, WoT Manager can connect to several registries.
 
@@ -31,7 +29,7 @@ WoT Manager offers the following features:
 
 * **AI Planning**: Taking natural language commands a step further, WoT manager makes use of modern LLM's planning capabilities. A user can specify a goal in natural language. In turn, the system will figure out a way to accomplish this goal by invoking device actions.
 
-### Architecture 
+## Architecture 
 
 ![image](https://github.com/user-attachments/assets/90a9cfd5-38cd-41b4-b772-97c2132bc655)
 
@@ -46,11 +44,11 @@ This figure describes the WoT manager architecture. We see the following compone
 * The [RBAC](https://dashjoin.github.io/platform/latest/security/#access-control) and [credential manager](https://dashjoin.github.io/platform/latest/developer-reference/#credentials) are part of the platform.
 * The mapping component sits between the platform and the device APIs
 
-### Implementation 
+## Implementation 
 
 In this section, we describe the implementation of the features using the architecture presented above. The platform uses [JSONata](https://jsonata.org/) to express application logic in a concise way. JSONata is a functional query and transformation language for JSON data. The platform extends JSONata with a number of [custom functions](https://dashjoin.github.io/platform/latest/developer-reference/#dashjoin-expression-reference) for accessing databases, REST services, and many other features.
 
-#### Data Model
+### Data Model
 
 The first step is to represent the TDs in the PostgreSQL database. We are using the following schema for that:
 
@@ -58,7 +56,7 @@ The first step is to represent the TDs in the PostgreSQL database. We are using 
 
 The TDs are stored in the table "thing" along with the child tables **property**, **event** and **action**. These four tables hold the information loaded from the registries. In addition, the **thing** table have the columns **credentials** and **role**, which define how devices are being accessed and how users are authorized for devices. The table registry is used to store the addresses of the registries. The table **saref:LightSwitch** represents tables that are created for any [WoT semantic annotation](https://www.w3.org/TR/wot-thing-description/#semantic-annotations). These tables are used to drive dashboards over multiple devices of the same type.
 
-#### Security and Access Control
+### Security and Access Control
 
 When managing multiple devices, there are two principal approaches:
 
@@ -74,11 +72,11 @@ $credential = $read("wot", "thing", id).credential;
 $curl(..., $credential ? {"Authorization": $credential} : {});
 ```
 
-#### Role Based Access Control
+### Role Based Access Control
 
 Since WoT Manager impersonates the users when communicating with the devices, we need to make sure that access control is enforced in the system. This is realized by associating device credentials with a system role. This means that only users in that role are allowed to use the credentials. The system also restricts user access to things they are not allowed to access by introducing a role column on the things table. When querying the things table, the system only returns those rows where the role column has a role the current user is in.
 
-#### Discovery
+### Discovery
 
 When setting up Wot Manager, the various registries and be entered in the corresponding table. Technically, a registry provides a list of TDs. Note that some things also publish their own TD. We treat these devices as device plus mini registry. Loading all TDs from the registry can be done using the following code:
 
@@ -108,7 +106,7 @@ The resulting list of TDs can then be mapped into the DB schema using mapping ex
 
 This expression collects the action's JSON Schema from either the uriVariables or the "input" fields. Note that the platform offers a [streaming mode](https://dashjoin.github.io/platform/latest/developer-reference/#etl) to support importing large sets of TDs.
 
-#### Generic Properties and Actions
+### Generic Properties and Actions
 
 The user interface for displaying device properties makes use of the platform's display widget. It is placed in a container that shows a widget for every device property. The widget simply displays the result of the HTTP request to the device WoT API. The device href is obtained from the foreach loop variable "value" which in turn is read from the database by looking up all properties of the current thing. Finally, the authorization header is obtained via the mechanism described in the security section:
 
@@ -134,7 +132,7 @@ The screenshot above shows a form that gathers data for performing an action. Wo
 
 The field schemaExpression specifies a JSONata expression to compute the JSON Schema for the form. The field "print" specifies the action to perform when the button is pressed. We perform two commands. First, the action is performed. The call to the template subroutine helps to handle cases where the inputs are provided as URI variables. The call to refresh triggers the UI to redraw itself, getting potentially updated device values in the process, e.g. the water level being lower after a beverage was brewed.
 
-#### Semantic Data Harmonization
+### Semantic Data Harmonization
 
 WoT uses semantic annotations in order to describe things by associating them with a concept via the **@type** field. Consider the following annotation:
 
@@ -202,11 +200,30 @@ In this scenario, we need a small piece of mapping code. Luckily, JSONata is per
 
 This mapping is introduced in the loading procedure described in the beginning of this section. Note that we can add any other field mapping required for other devices in the expression above. If the field's value evaluates to undefined (i.e. neither the watt or power fields are present in the input), the key is omitted altogether.
 
-#### Incorporating Background Knowledge
+### Incorporating Background Knowledge
 
+There are some use cases that require additional information beyond the data we receive from WoT properties. 
 
+The device is likely to report its serial number or a device type. However, additional information about the type might not be included. This is typically found in datasheets that contain general product information. Consider this datasheet of a Siemens [Smart Home Energy Monitor](https://cache.industry.siemens.com/dl/files/239/109973239/att_1293296/v1/SIE_DS_InhabEM.pdf). It specifies things like the minimum and maximum temperature the device can be operated under or that the Max Voltage Sensing is 264VAC L-N per channel. This background is typically provided by the device vendor.
 
-#### Natural Language Commands
+Along the same lines, the device might not be aware of the exact location it is installed in or whom to contact in case of an alert. This data is specific to the installation and can be found in building plans, asset management systems or bill of material databases.
+
+WoT Manager allows joining this data on a common identifier which typically is the WoT device ID. Our demonstrator links energy sensors to a table denoting the floor where the sensor is installed via the following query:
+
+```
+SELECT
+  "saref:Sensor"."id", "saref:Sensor"."status", floor, "datasheet"."minTemp", "datasheet"."maxTemp"
+FROM
+  "saref:Sensor", "assets", datasheet
+WHERE
+  id = assets."ID" AND datasheet."ID" = datasheet
+ORDER BY
+  floor
+```
+
+Based on this query, 
+
+### Natural Language Commands
 
 ![image](https://github.com/user-attachments/assets/371fa9d1-1b07-4652-8e3e-236eff1cb050)
 
@@ -281,6 +298,14 @@ call the LLM with the prompt obtained from the user
 TODO: add AI trace
 
 ## Use Cases 
+
+In this section, we will show how the features introduced in the previous sections can be applied to real-world use cases. The use cases are included in the [online version](https://wot.run.dashjoin.com/) of WoT Manager for you to explore and experiment.
+
+### Building Automation
+
+The building automation use case descibes a scenario where several 
+
+### Smart City
 
 * Home automation to showcase dynamic forms 
 * Building management to showcase data harmonization 

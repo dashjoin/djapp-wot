@@ -4,3 +4,5 @@ FROM
   "saref:Sensor", "assets", datasheet
 WHERE
   id = assets."ID" AND datasheet."ID" = datasheet
+ORDER BY
+  floor

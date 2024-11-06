@@ -26,6 +26,27 @@
                 "table": "saref:Sensor",
                 "title": "Number of Energy Readings in Given Range & per Floor",
                 "widget": "analytics"
+            },
+            {
+                "columns": [
+                    {
+                        "name": "floor",
+                        "aggregation": "GROUP_BY"
+                    },
+                    {
+                        "name": "status",
+                        "aggregation": "SUM"
+                    }
+                ],
+                "filter": [
+
+                ],
+                "database": "wot",
+                "query": "energy",
+                "table": "saref:Sensor",
+                "title": "Energy Consumption per Floor",
+                "chart": "bar",
+                "widget": "analytics"
             }
         ]
     }
