@@ -223,6 +223,8 @@ ORDER BY
 
 Based on this query, 
 
+![image](https://github.com/user-attachments/assets/85074a89-d9be-4890-96a9-e7f6ec61b00d)
+
 ### Natural Language Commands
 
 ![image](https://github.com/user-attachments/assets/371fa9d1-1b07-4652-8e3e-236eff1cb050)
