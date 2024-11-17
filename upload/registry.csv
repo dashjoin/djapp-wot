@@ -1,2 +1,3 @@
 ID,credentials
 file:upload/td.json,
+http://plugfest.thingweb.io/http-advanced-coffee-machine,
