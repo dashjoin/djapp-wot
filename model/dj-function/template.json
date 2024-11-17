@@ -2,5 +2,8 @@
     "ID": "template",
     "djClassName": "org.dashjoin.function.Invoke",
     "expression-pointer": "0.jsonata",
-    "comment": "Append URL parameters"
+    "comment": "Append URL parameters",
+    "roles": [
+        "authenticated"
+    ]
 }
