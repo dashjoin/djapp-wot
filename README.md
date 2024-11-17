@@ -9,5 +9,5 @@ This [paper](paper.md) describes the motivation and technical architecture.
 
 The demo integrates the following Things:
 
-* http://plugfest.thingweb.io:8083/smart-coffee-machine
-* http://plugfest.thingweb.io:8083/counter
+* [Coffee Machine](http://plugfest.thingweb.io/http-advanced-coffee-machine)
+* [Energy Sensors](https://github.com/dashjoin/djapp-wot/blob/main/upload/td.json)
