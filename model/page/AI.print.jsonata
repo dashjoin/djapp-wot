@@ -1,0 +1,30 @@
+(
+$x := $curl("POST", "https://api.openai.com/v1/chat/completions", {
+    "model": "gpt-4o-2024-08-06",
+    "messages": [
+      {
+        "role": "system",
+        "content": "You extract a coffee order into JSON data."
+      },
+      {
+        "role": "user",
+        "content": form.Command
+      }
+    ],
+    "response_format": {
+      "type": "json_schema",
+      "json_schema": {
+        "name": "coffe_request_schema",
+        "schema": {
+            "type": "object",
+            "properties": $all("wot", "action")[name="makeDrink"].vars,
+            "additionalProperties": false
+        }
+      }
+    }
+  }, {"Authorization": "openai"}).choices.message[0].content ~> $parseJson($);
+
+$setVariable("request", $x);
+$curl("POST", "http://plugfest.thingweb.io/http-advanced-coffee-machine/actions/makeDrink", $x);
+$refresh();
+)
