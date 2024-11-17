@@ -2,6 +2,8 @@
     "ID": "energy",
     "type": "read",
     "database": "dj/wot",
-    "arguments": null,
-    "query-pointer": "0.sql"
+    "query-pointer": "0.sql",
+    "roles": [
+        "authenticated"
+    ]
 }
