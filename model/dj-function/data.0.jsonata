@@ -1,5 +1,8 @@
 (
-  $things := $all("wot", "thing").
+  $things := $all("wot", "thing").{
+    "id": id,
+    "type": type = "Thing" ? "wot:Thing" : type
+  }.
   ( 
     $id := id;
     $ ~> | $ | {
