@@ -4,5 +4,8 @@
     "username": "Authorization",
     "password": "DJ1#\bBcnsnRMJzRPg7MT76p8aTp3QN4fKV4AGJZwANWes81To4W2VIHHqff1MtlcTS0ezzI8/8N5JitBa/KC2n+Pk6RzMx+pVMegO",
     "apiKey": true,
-    "comment": "LLM credentials"
+    "comment": "LLM credentials",
+    "roles": [
+        "authenticated"
+    ]
 }
