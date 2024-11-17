@@ -1,3 +1,6 @@
-sensor.(
+sensor ? 
+  sensor.(
     watt ? watt : power.amount * (power.unit = 'kW' ? 1000 : 1)
-)
+  )
+:
+$
