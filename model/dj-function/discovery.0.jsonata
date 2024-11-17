@@ -1,5 +1,5 @@
 $all("wot", "registry").ID.
 (
   $href := $;
-  $curl("GET", $) ~> | $ | {"href": $href} |
+  $curl("GET", $) ~> | $ | {"href": $href, "role": "authenticated"} |
 )
