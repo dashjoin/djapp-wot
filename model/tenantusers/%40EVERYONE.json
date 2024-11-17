@@ -3,6 +3,6 @@
     "ID": "@EVERYONE",
     "properties": null,
     "roles": [
-        "admin"
+        "authenticated"
     ]
 }
