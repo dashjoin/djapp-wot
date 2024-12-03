@@ -299,14 +299,47 @@ register the functions with the LLM
 call the LLM with the prompt obtained from the user
 ```
 
-TODO: add AI trace
+Consider the following example: In the evening, we would like to "turn off unused lights" in an office building. The LLM can plan and execute this task when given these tools:
 
-## Use Cases
+```
+Locking system: get a list of persons in the building
+Directory service: get LDAP information about persons
+Asset DB: get devices by room
+Light action: turn lights off/on
+```
 
-In this section, we will show how the features introduced in the previous sections can be applied to real-world use cases. The use cases are included in the [online version](https://wot.run.dashjoin.com/) of WoT Manager for you to explore and experiment.
+Here is a sample trace:
 
-TODO
+```
+> Running step 336b4b45-06c4-499f-8bf8-fbf59d943708. Step input: turn off lights in offices where people have gone home
+Thought: The current language of the user is English. I need to use a tool to help me identify which offices have people who have gone home.
+Action: lockingSystem
+Action Input: {}
+Observation: ['joe@emaple.org', 'mike@example.org']
+> Running step 637db939-be6e-491a-9a7e-0b80a1498dcf. Step input: None
+Thought: I have the list of people currently in the office building. I need to get directory information to determine which offices these individuals belong to.
+Action: ldap
+Action Input: {}
+Observation: [{'email': 'joe@example.org', 'office': '12b'}, {'email': 'mike@example.org', 'office': '15'}, {'email': 'sarah@example.org', 'office': '4a'}]
+> Running step 8608270f-5f1c-4b84-a74c-5a4946ee739d. Step input: None
+Thought: I have the office information for each person. Joe is in office 12b, Mike is in office 15, and Sarah is in office 4a. Since Joe and Mike are still in the building, I need to turn off the lights in Sarah's office (4a) as she has gone home.
+Action: assets
+Action Input: {'office': '4a'}
+Observation: [{'id': '35313-2426', 'type': 'light-switch'}, {'id': 'af425-f352', 'type': 'energy sensor'}]
+> Running step f95c73ed-50a8-42e7-a5a5-aa2303b21cd2. Step input: None
+Thought: I have identified the light switch asset in Sarah's office (4a) with the ID '35313-2426'. I will now proceed to turn off the light in that office.
+Action: light
+Action Input: {'id': '35313-2426', 'state': False}
+Observation: None
+> Running step c8d309f5-0a2b-4598-b153-a5dc6d81bfbc. Step input: None
+Thought: I have successfully turned off the lights in Sarah's office (4a) as she has gone home. I can now provide the final response.
+Answer: The lights in office 4a have been turned off as the occupant has gone home.
+```
 
 ## Conclusion
 
-TODO
+In this paper we presented WoT Manager. A [demo version](https://wot.run.dashjoin.com/) is online for you to experiment. You can login with an existing Google user or by registering with any email address.
+
+The key takeaway is twofold. First, leveraging a Low Code approach and standards like WoT and JSON Schema, the cost of developing a powerful and feature rich application is very low. WoT dramatically standardizes and simplifies the way to interact with devices. The Low Code platform, allows us to use its powerful out of the box features such as role based access control or input forms driven by JSON Schema.
+
+The second takeway is that a solid basis of WoT actions and their metadata make it possible to interact with the devices in a generic way via large language models. LLMs can replace traditional client code with an intelligent layer that can interface with users in a more natural way.
