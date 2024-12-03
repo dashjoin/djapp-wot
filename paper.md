@@ -7,7 +7,49 @@
 
 Internet of Things (IoT) describes applying internet technology to devices in homes, factories, or smart cities. Obviously, this space offers tremendous potential for applications like energy management, predictive maintenance, and many more. With IoT being such a wide field, many different vendors are active in it, offering their own platforms, protocols and specifications. The Web of Things (WoT) standards by the World Wide Web Consortium (W3C) aims at overcoming the interoperability challenge resulting from this diversity, where the core Thing Description (TD) specification allows describing protocol interfaces of any IoT device with any protocol.
 
-TODO: (Ege) A simple TD example would be good here. Probably using counter is a good since it is used again later on. Also explaining the JSON Schema usage somewhere here would be good.
+Consider this [sample TD](http://plugfest.thingweb.io/http-advanced-coffee-machine). It lists a [JSON-LD](https://json-ld.org/) context, device type, description, and security definitions.
+
+```
+ "@context": [
+    "https://www.w3.org/2019/wot/td/v1",
+    "https://www.w3.org/2022/wot/td/v1.1",
+    {
+      "@language": "en"
+    }
+  ],
+  "@type": "Thing",
+  "title": "http-advanced-coffee-machine",
+  "securityDefinitions": {
+```
+
+This is followed by properties, actions, and events. Properties describe the device sensors by specifying how to query the sensor via a web form and what kind of data to expect via a JSON Schema:
+
+```
+  "properties": {
+    "allAvailableResources": {
+      "type": "object",
+      "description": "Current level of all available resources given as an integer percentage for each particular resource.\\nThe data is obtained from the machine's sensors but can be set manually via the availableResourceLevel property in case the sensors are broken.",
+      "readOnly": true,
+      "properties": {
+        "water": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        ...
+      },
+      "forms": [
+        {
+          "href": "http://plugfest.thingweb.io:80/http-advanced-coffee-machine/properties/allAvailableResources",
+          "contentType": "application/json",
+          "op": [
+            "readproperty"
+          ],
+          "htv:methodName": "GET"
+        },
+```
+
+Actions describe device functionality that can be called from a client. Events are asynchronous calls from the device back to the client.
 
 Several [WoT SDKs and tools](https://www.w3.org/WoT/developers/) are already available. We are specifically interested in applications that make use of WoT’s generic nature. This means that rather than building a solution for one application area, we want the solution to be able to provide value on top of any WoT device. This concept was introduced by [Sciullo et al](https://arxiv.org/pdf/1910.04617), and it allows for any WoT device to be connected to a management system. The system displays the device properties and displays generic forms for conveniently invoking device actions. We build on their ideas and extend them, specifically by introducing security, semantic mappings, and the ability to leverage artificial intelligence to interact with arbitrary devices more easily.
 
