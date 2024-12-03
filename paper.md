@@ -340,6 +340,6 @@ Answer: The lights in office 4a have been turned off as the occupant has gone ho
 
 In this paper we presented WoT Manager. A [demo version](https://wot.run.dashjoin.com/) is online for you to experiment. You can login with an existing Google user or by registering with any email address.
 
-The key takeaway is twofold. First, leveraging a Low Code approach and standards like WoT and JSON Schema, the cost of developing a powerful and feature rich application is very low. WoT dramatically standardizes and simplifies the way to interact with devices. The Low Code platform allows us to use its powerful out of the box features such as role based access control or input forms driven by JSON Schema.
+The key takeaway is twofold. First, leveraging a Low Code approach and standards like WoT and JSON Schema, the cost of developing a powerful and feature rich application is very low. WoT standardizes and simplifies the way to interact with devices. The Low Code platform allows us to use its powerful out of the box features such as role based access control or input forms driven by JSON Schema.
 
 The second takeaway is that a solid basis of WoT actions and their metadata make it possible to interact with the devices in a generic way via large language models. LLMs can replace traditional client code with an intelligent layer that can interface with users in a more natural way.
